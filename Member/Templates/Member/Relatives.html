@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" id="member" action="" data-relation-url="{%url 'Member:Ajaxrelation' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+    <table border="2" align="center" cellpadding="10" style="border-collapse: collapse;">
+        
+    <tr>
+        <td>Name</td>
+        <td><input type="text" name="txt_name" value="" required="" autocomplete="off" onchange="nameval(this)"><span id="name"></span></td>
+    </tr>
+    <tr>
+        <td>Age</td>
+        <td><input type="text" name="txt_age" value="" required="" autocomplete="off" pattern="[0-9]{1,3}"></td>
+    </tr>
+    <tr>
+        <td>Contact</td>
+        <td><input type="text" name="txt_contact" value="" required="" autocomplete="off" onchange="checknum(this)"><span id="contact"></span></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><input type="email" name="txt_email" value="" required="" autocomplete="off" onchange="emailval(this)"><span id="content"></span></td>
+    </tr>
+    
+    <tr>
+        <td>Gender</td>
+       <td>Male<input type="radio" name="gender" value="Male">
+       Female<input type="radio" name="gender" value="Female" ></td>
+    </tr>
+    <tr>
+      <td>Address</td>
+      <td><textarea name="txt_address" value="" required="" autocomplete="off"></textarea></td>
+  </tr>
+    <tr>
+        <td>Photo</td>
+        <td><input type="file" name="photo" value="" required=""></td>
+    </tr>
+    <tr>
+        <td>Relation</td>
+       <td>
+       {% for i in relationtype %}
+       <input type="radio" name="relation" value="{{i.id}}" class="relation">{{i.relation_type}}
+       {% endfor %}
+       
+    </td>
+    </tr>
+    <tr  id="vis" style="visibility: hidden;">
+        <td>Choose Relative</td>
+        <td>
+            <select name="selr" id="selr">
+                
+            </select>
+        </td>
+    </tr>
+    <tr>
+         <td colspan="2" align="center">      
+        <input type="submit" name="save" value="Save">
+        <input type="reset" name="cancel" value="Cancel">
+        </td>
+    </tr>
+</table>
+<br><br>
+
+<table align="center" cellpadding="10">
+    <tr>
+        {% for i in datas %}
+        <td>
+            <div style="border:1px solid black;margin:20px;padding:10px">
+            <p><img src="{{i.photo.url}}" width="150" height="150"></p>
+              <p>Name : {{i.relative_name}}</p>
+               <p>Age : {{i.age}}</p>
+               <p>Contact: {{i.contact}}</p>
+               <p>Email: {{i.email}}</p>
+               
+               <p>Gender: {{i.gender}}</p>
+               <p>Relation Type: {{i.relation_type.relation_type}}</p>
+               <p><a href="{% url 'Member:deleterelative' i.id %}">Remove</a></p>
+
+                {% if i.inactive == 0 %}
+                <p><a href="{% url 'Member:deleterelative' i.id %}">Remove</a></p>
+                {% elif i.inactive == 2 %}
+                <p style="color: red;">This relative is removed</p>
+                {% endif %}
+                   
+               
+               
+                   </div>
+</td>
+{% if forloop.counter|divisibleby:4 %}  
+</tr>
+<tr>
+
+    {% endif %}
+    {% endfor %}
+    </table>
+    
+
+</form>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(".relation").click(function () {
+        var did = $(this).val();
+//alert(did);
+        var ur = $("#member").attr("data-relation-url");
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                document.getElementById("vis").style.visibility="visible";       
+                $("#selr").html(data);
+            },
+        });
+    });
+</script>
+
+<script>
+       
+    function chkpwd(txtrp, txtp)
+{
+if((txtrp.value)!=(txtp.value))
+{
+document.getElementById("pass").innerHTML = "<span style='color: red;'>Passwords Mismatch</span>";
+}
+}
+
+function checknum(elem)
+{
+var numericExpression = /^[0-9]{10,10}$/;
+if(elem.value.match(numericExpression))
+{
+document.getElementById("contact").innerHTML = "";
+return true;
+}
+else
+{
+document.getElementById("contact").innerHTML = "<span style='color: red;'>Numbers Only Allowed</span>";
+elem.focus();
+return false;
+}
+}
+
+
+
+function emailval(elem)
+{
+var emailexp=/^([a-zA-Z0-9.\_\-])+\@([a-zA-Z0-9.\_\-])+\.([a-zA-Z]{2,4})$/;
+if(elem.value.match(emailexp))
+{
+document.getElementById("content").innerHTML = "";
+return true;
+}
+else
+{
+
+document.getElementById("content").innerHTML ="<span style='color: red;'>Check Email Address Entered</span>";;
+elem.focus();
+return false;
+}
+}
+function nameval(elem)
+{
+var emailexp=/^([A-Za-z ]*)$/;
+if(elem.value.match(emailexp))
+{
+document.getElementById("name").innerHTML = "";
+return true;
+}
+else
+{
+
+document.getElementById("name").innerHTML = "<span style='color: red;'>Alphabets Are Allowed</span>";
+elem.focus();
+return false;
+}
+}
+</script>

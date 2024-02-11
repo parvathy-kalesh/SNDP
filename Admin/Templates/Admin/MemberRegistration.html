@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form method="post" action="" id="UserForm" data-places-url="{% url 'Guest:AjaxLocation'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center" border="1" cellpadding ="10">
+            <tr>
+                <td>name</td>
+                <td><input type="text" name="txt_name" id=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>age</td>
+                <td><input type="text" name="txt_age" id=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>contact</td>
+                <td><input type="text" name="txt_con" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td><input type="text" name="txt_email" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea name="txt_add" id="" cols="30" rows="10" required="" autocomplete="off"></textarea></td>
+            </tr>
+            <tr>
+                <td>gender</td>
+                <td><input type="radio" name="btn_gen" id="" value="male">male
+                <input type="radio" name="btn_gen" id="" value="female">female</td>
+            </tr>
+            <tr>
+                <td>place</td>
+                <td><select name="select_pla" id="sel_place" required="" autocomplete="off">
+                    <option> --select--</option>
+                    {% for i in disdata %}
+                    <option value="{{ i.id }}">{{ i.place_name }}</option>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>location</td>
+                <td><select name="select_loca" id="sel_loca" required="" autocomplete="off">
+                <option>--select--</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>photo</td>
+                <td><input type="file" name="txt_pic" id=""  required="" autocomplete="off"></td>
+            </tr>
+            
+            <tr>
+                <td>password</td>
+                <td><input type="password" name="txt_pass" id=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>confirm password</td>
+                <td><input type="password" name="txt_conform" id=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save" value="register" id="">
+                <input type="reset" name="btn_reset" value="cancel" id=""></td>
+                
+            </tr>
+        </table>
+
+        <br><br><br><br>
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> name</td>
+            <td>age</td>
+            <td>contact</td>
+            <td>email</td>
+            <td>Address</td>
+            <td>gender</td>
+            <td>place</td>
+            <td>location</td>
+            <td>Password</td>
+
+            <td>Action</td>
+        </tr>
+        {% for i in memdata %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.member_name}}</td>
+            <td>{{i.age}}</td>
+         
+            <td>{{i.contact}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.gender}}</td>
+            <td>{{i.location.place.place_name}}</td>
+            <td>{{i.location.location_name}}</td>
+            <td>{{i.password}}</td>
+            <td><a href="{% url 'Admin:del_memberregister' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
+    </form>
+    </body>
+    </html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $("#sel_place").change(function () {
+            var did = $(this).val();
+            var ur = $("#UserForm").attr("data-places-url");
+            $.ajax({
+                url: ur,
+                data: { Pla: did, },
+                success: function (data) {
+                    $("#sel_loca").html(data);
+                },
+            });
+        });
+</script>

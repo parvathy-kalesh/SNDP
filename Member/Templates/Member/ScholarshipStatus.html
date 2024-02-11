@@ -1,0 +1,56 @@
+<table border="1" align="center" cellpadding="10" style="border-collapse: collapse; margin-top: 200px" align="center">
+    <tr>
+        <td>Sl.no</td>
+     
+        
+        <td>Scholarship Name</td>
+        <td> Scholarship Status</td>
+        
+    </tr>
+   
+    {% if datas %}
+    {% for i in datas %}
+<tr>
+<td>{{forloop.counter}}</td>
+
+
+<td>{{i.scholarship_name.scholarship_name}}</td>
+<td>
+    {% if i.status == 0 %}
+    <p >Application on process</p>
+    {% elif i.status == 1 %}
+    <p >Application accepted</p>
+    {% else %}
+    <p >rejected</p>
+    {% endif %}
+</td>
+ 
+</tr>
+
+
+{% endfor %}
+{% elif data %}
+
+
+{% for i in datas %}
+<tr>
+<td>{{forloop.counter}}</td>
+
+
+<td>{{i.scholarship_name.scholarship_name}}</td>
+<td>
+    {% if i.status == 0 %}
+    <p >Application on process</p>
+    {% elif i.status == 1 %}
+    <p >Application accepted</p>
+    {% else %}
+    <p >rejected</p>
+    {% endif %}
+</td>
+
+</tr>
+{% endfor %}
+{% else %}
+<p>no results</p>
+{% endif %}
+</table>

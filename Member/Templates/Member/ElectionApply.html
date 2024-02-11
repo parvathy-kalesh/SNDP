@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+      
+        <table border="3" cellpadding="10" align="center">
+         
+            
+            <tr>
+                <td>title</td>
+                <td>{{ cdata.title}}</td>
+            </tr>
+            <tr>
+                <td>details</td>
+                <td>{{ cdata.details}}</td>
+            </tr>
+            <tr>
+            
+                
+                <td>result date</td>
+                <td>{{ cdata.redate }}</td>
+            </tr>
+            <tr>
+                <td>position</td>
+                <td><select name="ptype">
+                <option value="">----select----</option>
+                {% for i in ptype %}
+                <option value="{{i.id}}">{{i.election_position}}</option>
+                {% endfor %}
+                </select></td>
+            
+        </tr>
+         
+          
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_submit" id="" value="save">
+                <input type="reset" name="btn_cancel" id="" value="cancel"></td>
+               
+            </tr>
+        </table>
+       
+</body>
+</html>

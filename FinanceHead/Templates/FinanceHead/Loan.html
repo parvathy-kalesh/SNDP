@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="4" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name1" id="" value="" required="" autocomplete="off"> </td>
+            </tr>
+            <tr>
+                <td>Details</td>
+                <td><input type="text" name="txt_name2" id="" value="" required="" autocomplete="off"> </td>
+            </tr>
+           <tr>
+            <td>Loan type</td>
+            <td><select name="select_sch" id="" required="" autocomplete="off">
+                <option> --select--</option>
+                {% for i in disdata %}
+                <option value="{{ i.id }}">{{ i.loan_name }}</option>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" name="btn_save " id="" value="submit">
+                <input type="reset" name="btn_cancel" id="" value="cancel">
+            </td>
+        </tr>
+        </table>
+        <br><br><br>
+        <table align="center" border="1">
+            <tr>
+                <td>sl no.</td>
+                <td>name</td>
+                <td>details</td>
+                <td>Action</td>
+            </tr>
+            
+        {% for i in subcat %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.loan_name}}</td>
+                <td>{{i.loan_details}}</td>
+                <td><a href="{% url 'FinanceHead:del_loan' i.id %}">Delete</a>
+              
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>

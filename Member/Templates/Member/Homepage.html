@@ -1,0 +1,13 @@
+
+{% if mdata %}
+
+Welcome {{mdata.member_name}}
+{% endif %}
+
+{% if udata %}
+
+Welcome {{udata.relative_name}}
+{% endif %}
+<a href="{% url 'Member:MyProfile' %}">my profile</a><br>
+<a href="{% url 'Member:EditProfile' %}">edit profile</a><br>
+<a href="{% url 'Member:logout' %}">logout</a><br>

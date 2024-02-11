@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <table border="1" align="center" cellpadding="10">
+            <tr>
+                <td>title</td>
+                <td><input type="text" name="txt_title" id=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>details</td>
+                <td><input type="text" name="txt_details" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>nomination date</td>
+                <td><input type="date" name="txt_nomdate" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>verification date</td>
+                <td><input type="date" name="txt_vedate" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>election date</td>
+                <td><input type="date" name="txt_eldate" id="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>result date</td>
+                <td><input type="date" name="txt_redate" id="" required="" autocomplete="off"></td>
+               
+                
+            </tr>
+            
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save " id="" value="submit">
+                    <input type="reset" name="btn_cancel" id="" value="cancel">
+                </td>
+            </tr>
+        </table>
+        <table border="1" align="center" cellpadding="3">
+            <tr>
+                <td>sl.no</td>
+                <td>title</td>
+                <td>details</td>
+                <td>nomination date</td>
+                <td>verification date</td>
+                <td>election date</td>
+                <td>result date</td>
+                <td>action</td>
+            </tr>
+            {% for i in disdata %}
+            <tr>
+                
+                <td>{{forloop.counter}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.details}}</td>
+                <td>{{i.nodate}}</td>
+                <td>{{i.vedate}}</td>
+                <td>{{i.eldate}}</td>
+                <td>{{i.redate}}</td>
+                <td><a href="{% url 'Admin:del_electiondec' i.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    
+</body>
+</html>

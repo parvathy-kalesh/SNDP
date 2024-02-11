@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view loan apply</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> document</td>
+            <td>date</td>
+            <td>loanname</td>
+            <td>proof</td>
+            <td>member name</td>
+            <td>Action</td>
+        </tr>
+        {% for i in cdata %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.document}}</td>
+            <td>{{i.apply_date}}</td>
+            <td>{{i.loan_name.loan_name}}</td>
+            <td>{{i.proof_name.proof_name}}</td>
+            <td>{{i.member_name.member_name}}</td>
+            <td>reject/accept</td>
+        </tr>
+        {% endfor %}
+        {% elif data %}
+
+        {% for i in data %}
+    </table>
+</form>
+</body>
+</html>

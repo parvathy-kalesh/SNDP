@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% if mdata %}
+        <table border="2" align="center" cellpadding="10" >
+            <td colspan="2"><img src="{{mdata.photo.url}}" width="150" height="150"></td>
+        <tr>
+            <td>Name</td>
+            <td>{{mdata.member_name}}</td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>{{mdata.age}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{mdata.contact}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{mdata.email}}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{{mdata.address}}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{mdata.gender}}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{mdata.location.location_name}}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if udata %}
+        <table border="2" align="center" cellpadding="10">
+            <td colspan="2"><img src="{{udata.photo.url}}" width="150" height="150"></td>
+           
+        <tr>
+            <td>Name</td>
+            <td>{{udata.relative_name}}</td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>{{udata.age}}</td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td>{{udata.contact}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{udata.email}}</td>
+        </tr>
+        
+    </table>
+    {% endif %}
+    </form>
+</body>
+</html>

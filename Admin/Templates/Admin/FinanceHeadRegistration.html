@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" id="" value=""  required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="txt_user" id="" value=""  required="" autocomplete="off"></td>
+            </tr>
+           
+            <tr>
+                <td>From date</td>
+                <td><input type="date" name="txt_date1" id="" value="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>To date</td>
+                <td><input type="date" name="txt_date2" id="" value="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="txt_password" id="" value="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Confirm Password</td>
+                <td><input type="password" name="txt_pas" id="" value="" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save " id="" value="submit">
+                    <input type="reset" name="btn_cancel" id="" value="cancel">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    <br><br><br><br>
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td>Finance head name</td>
+            <td>Username</td>
+            <td>From Date</td>
+            <td>To Date</td>
+            <td>Password</td>
+
+            <td>Action</td>
+        </tr>
+        {% for i in financehead %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.financehead_name}}</td>
+            <td>{{i.user_name}}</td>
+         
+            <td>{{i.fdate}}</td>
+            <td>{{i.sdate}}</td>
+            <td>{{i.password}}</td>
+            <td><a href="{% url 'Admin:del_finance' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

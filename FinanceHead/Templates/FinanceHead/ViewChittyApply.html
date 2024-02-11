@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view chitty apply</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> document</td>
+            <td>date</td>
+            <td>chittydata</td>
+            <td>relative name</td>
+            <td>member name</td>
+            <td>proof</td>
+            <td>Action</td>
+        </tr>
+        {% for i in memdata %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.document}}</td>
+            <td>{{i.apply_date}}</td>
+            <td>{{i.chittydata.chitty_name}}</td>
+            <td>{{i.relative_name.relative_name}}</td>
+            <td>{{i.member_name.member_name}}</td>
+            <td>{{i.proof_name.proof_name}}</td>
+            <td>
+                {% if i.status == 1 %}
+               Accepted | <a href="{% url 'FinanceHead:rejectchitty' i.id %}">Reject</a>
+               {% elif i.status == 2 %}
+               Rejected | <a href="{% url 'FinanceHead:acceptchitty' i.id %}">Accept</a>
+               {% else %}
+                <a href="{% url 'FinanceHead:acceptchitty' i.id %}">Accept</a>
+                <a href="{% url 'FinanceHead:rejectchitty' i.id %}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>

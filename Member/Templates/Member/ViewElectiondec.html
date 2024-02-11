@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        {% csrf_token %}
+<h1 align="center">election declaration</h1>
+
+
+<table border="1" align="center" cellpadding="3">
+    <tr>
+        <td>sl.no</td>
+        <td>title</td>
+        <td>details</td>
+        <td>nomination date</td>
+        <td>verification date</td>
+        <td>election date</td>
+        <td>result date</td>
+        <td>Action</td>
+       
+    </tr>
+    {% if data1 %}
+    {% for i in datas %}
+    <tr>
+        
+        <td>{{forloop.counter}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.details}}</td>
+        <td>{{i.nodate}}</td>
+        <td>{{i.vedate}}</td>
+        <td>{{i.eldate}}</td>
+        <td>{{i.redate}}</td>
+        <td><a href="{% url 'Member:ElectionApply' i.id %}">apply</a></td>
+        
+    </tr>
+    {% endfor %}
+    {% elif data %}
+    {% for i in datas %}
+    <tr>
+        
+        <td>{{forloop.counter}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.details}}</td>
+        <td>{{i.nodate}}</td>
+        <td>{{i.vedate}}</td>
+        <td>{{i.eldate}}</td>
+        <td>{{i.redate}}</td>
+
+        
+        
+    </tr>
+    {% endfor %}
+    {% else %}
+<p>no results</p>
+{% endif %}
+</table>
+</form>
+
+</body>
+</html>

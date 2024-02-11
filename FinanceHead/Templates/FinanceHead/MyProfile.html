@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        {% csrf_token %}
+     
+        <table border="1" align="center" cellpadding="12">
+         
+            <tr>
+                <th>name</th>
+                <td>{{udata.financehead_name}}</td>
+            </tr>
+            <tr>
+                <td> date</td>
+                <td>{{udata.fdate}}</td>
+            </tr>
+            <tr>
+                <td>date</td>
+                <td>{{udata.sdate}}</td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>{{udata.password}}</td>
+            </tr>
+          
+            </tr>
+        </table>
+        <a   href="{% url 'FinanceHead:Homepage' %}" >homepage</a>
+
+    </form>
+</body>
+</html>

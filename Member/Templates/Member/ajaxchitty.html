@@ -1,0 +1,19 @@
+<table align="center"  style="margin-bottom: 200px;" id="chitty">
+    <tr>
+        {% for i in subcat %}
+        <td>
+            <div style="border:1px solid black;margin:20px;padding:10px">
+              <p>Chitty Name : {{i.chitty_name}}</p>
+               <p>Chitty Details : {{i.chitty_details}}</p>
+               <p>Scheme Type : {{i.scheme.scheme_name}}</p>
+               <a href="{% url 'Member:ChittyApply' i.id %}">apply</a><br>
+               
+                   </div>
+</td>
+{% if forloop.counter|divisibleby:4 %}
+</tr>
+<tr>
+
+    {% endif %}
+    {% endfor %}
+    </table>

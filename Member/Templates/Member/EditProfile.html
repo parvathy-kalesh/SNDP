@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form method="post" action="">
+        {% csrf_token %}
+        {% if mdata %}
+        <table border="2" align="center" cellpadding="10" style="border-collapse: collapse;">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" value="{{mdata.member_name}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" name="txt_age" value="{{mdata.age}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="contact" value="{{mdata.contact}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" value="{{mdata.email}}"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="textarea" name="address" value="{{mdata.address}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">      
+               <input type="submit" name="save" value="Save">
+               <input type="reset" name="cancel" value="Cancel">
+               </td>
+           </tr>
+        </table>
+        {% endif %}
+        <br><br>
+        {% if udata %}
+        <table border="2" align="center" cellpadding="10" style="border-collapse: collapse;">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" value="{{udata.relative_name}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" name="txt_age" value="{{udata.age}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="contact" value="{{udata.contact}}" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" value="{{udata.email}}"></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2" align="center">      
+               <input type="submit" name="save" value="Save">
+               <input type="reset" name="cancel" value="Cancel">
+               </td>
+           </tr>
+        </table>
+        {% endif %}
+    </form>
+</body>
+</html>

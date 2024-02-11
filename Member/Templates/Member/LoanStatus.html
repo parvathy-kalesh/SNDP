@@ -1,0 +1,33 @@
+<table border="1" align="center" cellpadding="10" style="border-collapse: collapse; margin-top: 200px" align="center">
+    <tr>
+        <td>Sl.no</td>
+     
+        
+        <td>loan Name</td>
+        <td> loan Status</td>
+        
+    </tr>
+   
+   
+    {% for i in loanstatusview %}
+<tr>
+<td>{{forloop.counter}}</td>
+
+
+<td>{{i.loan_name.loan_name}}</td>
+<td>
+    {% if i.status == 0 %}
+    <p >Application on process</p>
+    {% elif i.status == 1 %}
+    <p >Application accepted</p>
+    {% else %}
+    <p >rejected</p>
+    {% endif %}
+</td>
+ 
+</tr>
+
+
+{% endfor %}
+
+</table>
