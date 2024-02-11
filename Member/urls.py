@@ -29,6 +29,8 @@ urlpatterns = [
      path('loanstatusview/', views.loanstatusview,name="loanstatusview"),
      path('applyelec/<int:did>',views.applyelec,name="applyelec"),
      path('ElectionApply/<int:lnid>',views.electionapply,name="ElectionApply"),
+     path('ViewElectionapply/',views.viewelectionapply,name="ViewElectionapply"),
+     path('ViewCandidates/<int:elid>',views.viewcandidates,name="ViewCandidates"),
 
     
 ]

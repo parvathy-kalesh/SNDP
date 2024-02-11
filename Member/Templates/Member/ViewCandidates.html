@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view candidates</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> candidate name</td>
+            <td>election position</td>
+            <td>election name</td>
+            <td>Action</td>
+          
+        </tr>
+        {% if data %}
+        {% for i in data %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+           
+            <td>{{i.member_name.member_name}}</td>
+            <td>{{i.election_position.election_position}}</td>
+            <td>{{i.election_name.title}}</td>
+           <td>Vote Now</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        {% if datas %}
+        {% for i,j in data %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+           
+            <td>{{i.member_name.member_name}}</td>
+            <td>{{i.election_position.election_position}}</td>
+            <td>{{i.election_name.title}}</td>
+           <td>
+            {% if i.election_position.id == j.electionapply.election_position.id %}
+            <p style="color: green;">Voted</p>
+            {% else %}
+            <p>Vote Now</p>
+            {% endif %}
+           </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+
+    
+    </table>
+</form>
+</body>
+</html>

@@ -273,3 +273,22 @@ def rejectscholar(request,did):
     return redirect("Admin:ViewScholarApply")
 
 
+def viewelectionapply(request):
+    memdata=tbl_electionapply.objects.all()
+    return render(request,"Admin/ViewElectionapply.html",{'memdata':memdata})
+
+
+def acceptelection(request,did):
+    data=tbl_electionapply.objects.get(id=did)
+    data.status=1
+    data.save()
+    return redirect("Admin:ViewElectionapply")
+
+
+def rejectelection(request,did):
+    data=tbl_electionapply.objects.get(id=did)
+    data.status=2
+    data.save()
+    return redirect("Admin:ViewElectionapply")
+
+

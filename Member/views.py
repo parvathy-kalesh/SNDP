@@ -3,7 +3,7 @@ from .models import *
 from Admin.models import *
 from Guest.models import *
 from FinanceHead.models import *
-
+from datetime import date
 
 # Create your views here.
 
@@ -165,11 +165,12 @@ def veledec(request):
     if 'mid' in request.session:
         data=tbl_memberadding.objects.get(id=request.session["mid"])
         sdata=tbl_electiondeclaration.objects.all()
-        return render(request,"Member/ViewElectiondec.html",{'datas':sdata,'data1':data})
+        curdate=date.today()
+        return render(request,"Member/ViewElectiondec.html",{'datas':sdata,'data1':data,'curdate':curdate})
     elif 'reid' in request.session:
         data=tbl_relatives.objects.get(id=request.session["reid"])
         sdata=tbl_electiondeclaration.objects.filter()
-        return render(request,"Member/ViewElectiondec.html",{'datas':sdata,'data':data})
+        return render(request,"Member/ViewElectiondec.html",{'datas':sdata,'data':data,'curdate':curdate})
     else:
         return redirect("Member:Homepage")
 
@@ -344,3 +345,52 @@ def electionapply(request,lnid):
             return render(request,"Member/ElectionApply.html",{'cdata':elec,'ptype':position ,'data1':memberdata})
         else:
             return render(request,"Member/ElectionApply.html",{'cdata':elec,'ptype':position,'data1':memberdata})
+
+
+
+def viewelectionapply(request):
+    memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+    elec=tbl_electionapply.objects.filter(member_name=memberdata)
+    
+    return render(request,"Member/ViewElectionapply.html",{'cdata':elec,'memberdata':memberdata})
+
+
+def vote(request,did):
+    curdate=date.today()
+    if 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        electiondata=tbl_electionapply.objects.filter(member_name=memberdata)
+        return render(request,"Member/ViewElectionapply.html",{'curdate':curdate,'member':memberdata,'eletiondata':electiondata})
+    else:
+        return render(request,"Member/ViewElectionapply.html",{'curdate':curdate,'member':memberdata,'eletiondata':electiondata})
+
+
+def viewcandidates(request,elid):
+    edata=tbl_electiondeclaration.objects.get(id=elid)
+    data=tbl_electionapply.objects.filter(status=1,election_name=edata)
+    if 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session['mid'])
+        datacount=tbl_voting.objects.filter(member=memberdata,electionapply__election_name=edata).count()
+        if datacount>0:
+            votedata=tbl_voting.objects.filter(member=memberdata,electionapply__election_name=edata)
+            datas=zip(data,votedata)
+            return render(request,"Member/ViewCandidates.html",{'datas':datas})
+        else:
+            return render(request,"Member/ViewCandidates.html",{'data':data})
+    elif 'reid' in request.session:
+        memberdata=tbl_relatives.objects.get(id=request.session['reid'])
+        datacount=tbl_voting.objects.filter(relative=memberdata,electionapply__election_name=edata).count()
+        if datacount>0:
+            votedata=tbl_voting.objects.filter(relative=memberdata,electionapply__election_name=edata)
+            datas=zip(data,votedata)
+            return render(request,"Member/ViewCandidates.html",{'datas':datas})
+        else:
+            return render(request,"Member/ViewCandidates.html",{'data':data})
+    else:
+         return redirect("Guest:Login")
+
+
+
+    
+      
+

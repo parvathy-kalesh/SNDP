@@ -51,4 +51,7 @@ class tbl_electionapply(models.Model):
     election_position=models.ForeignKey(tbl_electionposition,on_delete=models.CASCADE)
     member_name=models.ForeignKey(tbl_memberadding,on_delete=models.CASCADE)
 
-
+class tbl_voting(models.Model):
+    electionapply=models.ForeignKey(tbl_electionapply,on_delete=models.CASCADE)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
+    relative=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)

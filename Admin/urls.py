@@ -37,6 +37,9 @@ urlpatterns = [
     path('ViewScholarApply/',views.viewscholarapply,name="ViewScholarApply"),
     path('acceptscholar/<int:did>',views.acceptscholar,name="acceptscholar"),
     path('rejectscholar/<int:did>',views.rejectscholar,name="rejectscholar"),
+    path('ViewElectionapply/',views.viewelectionapply,name="ViewElectionapply"),
+    path('acceptelection/<int:did>',views.acceptelection,name="acceptelection"),
+    path('rejectelection/<int:did>',views.rejectelection,name="rejectelection"),
 
    
 ]

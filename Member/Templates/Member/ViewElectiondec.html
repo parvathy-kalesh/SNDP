@@ -34,8 +34,13 @@
         <td>{{i.vedate}}</td>
         <td>{{i.eldate}}</td>
         <td>{{i.redate}}</td>
-        <td><a href="{% url 'Member:ElectionApply' i.id %}">apply</a></td>
-        
+        <td>
+            
+            {%  if i.eldate == curdate %}
+            <a href="{% url 'Member:ViewCandidates' i.id %}">View cadidates</a>
+            {% else %}
+            <a href="{% url 'Member:ElectionApply' i.id %}">apply</a></td>
+        {% endif %}
     </tr>
     {% endfor %}
     {% elif data %}
@@ -50,7 +55,11 @@
         <td>{{i.eldate}}</td>
         <td>{{i.redate}}</td>
 
-        
+        <td>
+            {%  if i.eldate == curdate %}
+            <a href="{% url 'Member:ElectionApply' i.id %}">vote now</a>
+            {% endif %}
+        </td>        
         
     </tr>
     {% endfor %}

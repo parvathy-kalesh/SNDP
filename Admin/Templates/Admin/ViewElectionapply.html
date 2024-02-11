@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view election apply</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> member name</td>
+            <td>election_name</td>
+            <td>election_position</td>
+            <td>accept reject</td>
+          
+        </tr>
+        {% for i in memdata %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+            <td>{{i.member_name.member_name}}</td>
+            <td>{{i.election_name.title}}</td>
+            <td>{{i.election_position.election_position}}</td>
+            <td>  {% if i.status == 1 %}
+                Accepted | <a href="{% url 'Admin:rejectelection' i.id %}">Reject</a>
+                {% elif i.status == 2 %}
+                Rejected | <a href="{% url 'Admin:acceptelection' i.id %}">Accept</a>
+                {% else %}
+                 <a href="{% url 'Admin:acceptelection' i.id %}">Accept</a>
+                 <a href="{% url 'Admin:rejectelection' i.id %}">Reject</a>
+                 {% endif %}</td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>

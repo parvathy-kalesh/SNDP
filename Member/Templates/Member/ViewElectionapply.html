@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view election apply</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table border="1" align="center" cellpadding="3">
+        <tr>
+            <td>Sl.no</td>
+            <td> election position</td>
+            <td>election name</td>
+          
+        </tr>
+        {% for i in cdata %}
+        <tr>
+            
+            <td>{{forloop.counter}}</td>
+           
+            <td>{{i.election_position.election_position}}</td>
+            <td>{{i.election_name.title}}</td>
+           
+        </tr>
+        {% endfor %}
+    
+    </table>
+</form>
+</body>
+</html>
