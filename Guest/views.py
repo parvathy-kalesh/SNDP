@@ -6,6 +6,12 @@ from Member.models import *
 
 # Create your views here.
 
+
+def home(request):
+   return render(request,"Guest/index.html") 
+
+
+
 def mreg(request):
     disdata=tbl_place.objects.all()
     memdata=tbl_memberadding.objects.all()
