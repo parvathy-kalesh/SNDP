@@ -162,10 +162,11 @@ def Ajaxrelation(request):
 
 
 def veledec(request):
+    curdate=date.today()
     if 'mid' in request.session:
         data=tbl_memberadding.objects.get(id=request.session["mid"])
         sdata=tbl_electiondeclaration.objects.all()
-        curdate=date.today()
+        
         return render(request,"Member/ViewElectiondec.html",{'datas':sdata,'data1':data,'curdate':curdate})
     elif 'reid' in request.session:
         data=tbl_relatives.objects.get(id=request.session["reid"])
@@ -368,29 +369,83 @@ def vote(request,did):
 def viewcandidates(request,elid):
     edata=tbl_electiondeclaration.objects.get(id=elid)
     data=tbl_electionapply.objects.filter(status=1,election_name=edata)
+    return render(request,"Member/ViewCandidates.html",{'data':data})
+
+
+
+def votenow(request,vid):
+    edata=tbl_electionapply.objects.get(id=vid)
     if 'mid' in request.session:
-        memberdata=tbl_memberadding.objects.get(id=request.session['mid'])
-        datacount=tbl_voting.objects.filter(member=memberdata,electionapply__election_name=edata).count()
-        if datacount>0:
-            votedata=tbl_voting.objects.filter(member=memberdata,electionapply__election_name=edata)
-            datas=zip(data,votedata)
-            return render(request,"Member/ViewCandidates.html",{'datas':datas})
-        else:
-            return render(request,"Member/ViewCandidates.html",{'data':data})
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        tbl_voting.objects.create(electionapply=edata,member=memberdata)
+        return redirect("Member:ViewElectiondec")
     elif 'reid' in request.session:
-        memberdata=tbl_relatives.objects.get(id=request.session['reid'])
-        datacount=tbl_voting.objects.filter(relative=memberdata,electionapply__election_name=edata).count()
-        if datacount>0:
-            votedata=tbl_voting.objects.filter(relative=memberdata,electionapply__election_name=edata)
-            datas=zip(data,votedata)
-            return render(request,"Member/ViewCandidates.html",{'datas':datas})
-        else:
-            return render(request,"Member/ViewCandidates.html",{'data':data})
+        reldata=tbl_relatives.objects.get(id=request.session["reid"])
+        tbl_voting.objects.create(electionapply=edata,relative=reldata)
+        return redirect("Member:ViewElectiondec")
     else:
-         return redirect("Guest:Login")
+        return redirect("Member:ViewElectiondec")
+
 
 
 
     
+def voting(request,vid):
+    edata=tbl_electiondeclaration.objects.get(id=vid)# To Retrive data Which Election is Choosed
+    if 'mid' in request.session: # check if member is logined
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        voteddatacount=tbl_voting.objects.filter(member=mdata).count() 
+        j=0 #initalize j=0 for indexing for arrays defined below
+        parray=[0 for i in range(1,voteddatacount+1)] # Decalare array for store election Application id From voted data of logined member
+        parrays=[0 for i in range(1,voteddatacount+1)] # Decalare array for store election Postion id From voted data of logined member
+        voteddata=tbl_voting.objects.filter(member=mdata) # Data of Voted by member
+        for i in voteddata: # for loop for store postion and application id from voted data
+            parray[j]=i.electionapply.id #store application id to parray
+            parrays[j]=i.electionapply.election_position.id #store position to parray
+            j=j+1 #increment index of array
+
+        votedata=tbl_electionapply.objects.filter(status=1,election_name=edata) #select data from election apply form status=1 and election we choosed
+        return render(request,"Member/Voting.html",{'data':votedata,'voted':parray,'p':parrays,'mdata':mdata})
+       
+
+def results(request):
+    pid=6
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large=max(parray)
+    datas=zip(pdata,parray)
+
+    pid=5
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large1=max(parray)
+    datas1=zip(pdata,parray)
+
+    pid=4
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large2=max(parray)
+    datas2=zip(pdata,parray)
+    return render(request,"Admin/Secretary.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
+
+
       
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .candidate-card {
+            width: calc(25% - 40px); /* Adjust according to your preference */
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .candidate-card:hover {
+            transform: translateY(-5px);
+        }
+        .candidate-card p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .winner {
+            color: green;
+            font-weight: bold;
+        }
+        .failed {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>View Candidates</h2>
+    <div class="container">
+        {% if datas %}
+            {% for i, j in datas %}
+                <div class="candidate-card">
+                    <p>Member Name: {{ i.member_name.member_name }}</p>
+                    <p>Election Position: {{ i.election_position.election_position }}</p>
+                    <p>Election Name: {{ i.election_name.title }}</p>
+                    {% if j == win %}
+                        <p class="winner">Winner</p>
+                    {% else %}
+                        <p class="failed">Failed</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -292,3 +292,48 @@ def rejectelection(request,did):
     return redirect("Admin:ViewElectionapply")
 
 
+def viewresults(request,did):
+    request.session["election"]=did
+    return render(request,"Admin/ViewResults.html")
+
+def conviner(request):
+    pid=6
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large=max(parray)
+    datas=zip(pdata,parray)
+    return render(request,"Admin/conviner.html",{'datas':datas,'win':large})
+
+def secretary(request):
+    pid=5
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large=max(parray)
+    datas=zip(pdata,parray)
+    return render(request,"Admin/Secretary.html",{'datas':datas,'win':large})
+
+def president(request):
+    pid=4
+    posItiondata=tbl_electionposition.objects.get(id=pid)
+    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
+    pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
+    parray=[]
+    for i in pdata:
+        ecount=tbl_voting.objects.filter(electionapply=i.id).count()
+        parray.append(ecount)
+    large=max(parray)
+    datas=zip(pdata,parray)
+    return render(request,"Admin/President.html",{'datas':datas,'win':large})

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view candidates</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    {% if datas %}
+
+    <table border="1" align="center" cellpadding="3">
+        {% for i,j in datas %}
+        <td>
+        
+            <div style="border:1px solid black;margin:20px;padding:10px">
+                <p>member name : {{i.member_name.member_name}}</p>
+                <p>election position : {{i.election_position.election_position}}</p>
+                <p>election name: {{i.election_name.title}}</p>
+                {% if j == win %}
+                <p style="color: green;">Winner</p>
+                {% else %}
+                <p style="color: red;">failed</p>
+                
+        {% endif %}
+
+              
+            </div>
+        </td>
+        {% if forloop.counter|divisibleby:4 %}
+    </tr>
+    <tr>
+
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+
+
+    {% if datas1 %}
+
+    <table border="1" align="center" cellpadding="3">
+        {% for i,j in datas %}
+        <td>
+        
+            <div style="border:1px solid black;margin:20px;padding:10px">
+                <p>member name : {{i.member_name.member_name}}</p>
+                <p>election position : {{i.election_position.election_position}}</p>
+                <p>election name: {{i.election_name.title}}</p>
+                {% if j == win1 %}
+                <p style="color: green;">Winner</p>
+                {% else %}
+                <p style="color: red;">failed</p>
+                
+        {% endif %}
+
+              
+            </div>
+        </td>
+        {% if forloop.counter|divisibleby:4 %}
+    </tr>
+    <tr>
+
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+  
+    {% if datas2 %}
+
+    <table border="1" align="center" cellpadding="3">
+        {% for i,j in datas %}
+        <td>
+        
+            <div style="border:1px solid black;margin:20px;padding:10px">
+                <p>member name : {{i.member_name.member_name}}</p>
+                <p>election position : {{i.election_position.election_position}}</p>
+                <p>election name: {{i.election_name.title}}</p>
+                {% if j == win2%}
+                <p style="color: green;">Winner</p>
+                {% else %}
+                <p style="color: red;">failed</p>
+                
+        {% endif %}
+
+              
+            </div>
+        </td>
+        {% if forloop.counter|divisibleby:4 %}
+    </tr>
+    <tr>
+
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+
+       
+        
+</form>
+</body>
+</html>

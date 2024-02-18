@@ -31,6 +31,9 @@ urlpatterns = [
      path('ElectionApply/<int:lnid>',views.electionapply,name="ElectionApply"),
      path('ViewElectionapply/',views.viewelectionapply,name="ViewElectionapply"),
      path('ViewCandidates/<int:elid>',views.viewcandidates,name="ViewCandidates"),
+     path('Vote/<int:vid>',views.votenow,name="Vote"),
+     path('Voting/<int:vid>',views.voting,name="Voting"),
+     path('results/',views.results,name="results"),
 
     
 ]

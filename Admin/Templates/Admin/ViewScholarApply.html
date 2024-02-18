@@ -28,14 +28,14 @@
             <td>{{i.scholarship_name.scholarship_name}}</td>
             <td>{{i.relative_name.relative_name}}</td>
             <td>{{i.member_name.member_name}}</td>
-            <td> <td>  {% if i.status == 1 %}
+            <td>   {% if i.status == 1 %}
                 Accepted | <a href="{% url 'Admin:rejectscholar' i.id %}">Reject</a>
                 {% elif i.status == 2 %}
                 Rejected | <a href="{% url 'Admin:acceptscholar' i.id %}">Accept</a>
                 {% else %}
                  <a href="{% url 'Admin:acceptscholar' i.id %}">Accept</a>
                  <a href="{% url 'Admin:rejectscholar' i.id %}">Reject</a>
-                 {% endif %}</td></td>
+                 {% endif %}</td>
         </tr>
         {% endfor %}
     </table>

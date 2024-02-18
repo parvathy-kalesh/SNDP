@@ -40,6 +40,11 @@ urlpatterns = [
     path('ViewElectionapply/',views.viewelectionapply,name="ViewElectionapply"),
     path('acceptelection/<int:did>',views.acceptelection,name="acceptelection"),
     path('rejectelection/<int:did>',views.rejectelection,name="rejectelection"),
+    path('rejectelection/<int:did>',views.rejectelection,name="rejectelection"),
+    path('viewresults/<int:did>',views.viewresults,name="ViewResults"),
+    path('secretary/',views.secretary,name="Secretary"),
+    path('president/',views.president,name="President"),
+    path('conviner/',views.conviner,name="conviner"),
 
    
 ]

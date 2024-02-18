@@ -64,6 +64,7 @@
                 <td>{{i.eldate}}</td>
                 <td>{{i.redate}}</td>
                 <td><a href="{% url 'Admin:del_electiondec' i.id %}">Delete</a></td>
+                <td><a href="{% url 'Admin:ViewResults' i.id %}">view results</a></td>
             </tr>
             {% endfor %}
         </table>

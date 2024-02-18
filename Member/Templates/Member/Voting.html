@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 align="center">view candidates</h2>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table cellpadding="10" style="border-collapse: collapse;">
+            <tr>
+                {% for i in data %}
+                <td>
+                    <div style="border:1px solid black;margin:20px;padding:10px">
+                        <p><img src="{{i.member_name.photo.url}}" width="150" height="150"></p>
+                      <p>Name : {{i.member_name.member_name}}</p>
+                       <p>Contact : {{i.member_name.contact}}</p>
+                       <p>Email  :{{i.member_name.email}} </p>
+                       <p> Election Name : {{i.election_name.title}} </p>   
+                       <p>Election position : {{i.election_position.election_position}} </p>
+                       
+                       {% if i.id in voted  and i.election_position.id in p %}
+
+                       <p>Already Voted</p>
+                       {% elif i.election_position.id in p %}
+
+                       <p>Already Voted</p>
+                       {% else %}
+                      <p><a href="{% url 'Member:Vote' i.id %}">Vote NOW</a></p>
+                       {% endif %}
+                       
+                    </div>
+                </td>
+                {% if forloop.counter|divisibleby:4 %} 
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+            
+    </form>
+</body>
+</html>
