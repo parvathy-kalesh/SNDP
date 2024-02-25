@@ -337,3 +337,49 @@ def president(request):
     large=max(parray)
     datas=zip(pdata,parray)
     return render(request,"Admin/President.html",{'datas':datas,'win':large})
+
+
+def loanreport(request):
+    if request.method=="POST":
+        if request.POST.get('fdate')!="" and request.POST.get('edate')!="":
+            datas=tbl_loanapply.objects.filter(apply_date__gte=request.POST.get('fdate'),apply_date__lte=request.POST.get('edate'))
+            return render(request,"Admin/LoanApplicationReport.html",{'data':datas})
+        elif request.POST.get('fdate')!="":
+            datas=tbl_loanapply.objects.filter(apply_date__gte=request.POST.get('fdate'))
+            return render(request,"Admin/LoanApplicationReport.html",{'data':datas})
+        else:
+            datas=tbl_loanapply.objects.filter(apply_date__lte=request.POST.get('edate'))
+            return render(request,"Admin/LoanApplicationReport.html",{'data':datas})
+    else:
+        return render(request,"Admin/LoanApplicationReport.html")
+
+
+def scholarreport(request):
+    if request.method=="POST":
+        if request.POST.get('fdate')!="" and request.POST.get('edate')!="":
+            datas=tbl_scholarshipapply.objects.filter(date__gte=request.POST.get('fdate'),date__lte=request.POST.get('edate'))
+            return render(request,"Admin/ScholarApplicationReport.html",{'data':datas})
+        elif request.POST.get('fdate')!="":
+            datas=tbl_loanapply.objects.filter(date__gte=request.POST.get('fdate'))
+            return render(request,"Admin/ScholarApplicationReport.html",{'data':datas})
+        else:
+            datas=tbl_loanapply.objects.filter(date__lte=request.POST.get('edate'))
+            return render(request,"Admin/ScholarApplicationReport.html",{'data':datas})
+    else:
+        return render(request,"Admin/ScholarApplicationReport.html")
+
+
+
+def chittyreport(request):
+    if request.method=="POST":
+        if request.POST.get('fdate')!="" and request.POST.get('edate')!="":
+            datas=tbl_chittyjoin.objects.filter(apply_date__gte=request.POST.get('fdate'),apply_date__lte=request.POST.get('edate'))
+            return render(request,"Admin/ChittyApplicationReport.html",{'data':datas})
+        elif request.POST.get('fdate')!="":
+            datas=tbl_chittyjoin.objects.filter(apply_date__gte=request.POST.get('fdate'))
+            return render(request,"Admin/ChittyApplicationReport.html",{'data':datas})
+        else:
+            datas=tbl_chittyjoin.objects.filter(apply_date__lte=request.POST.get('edate'))
+            return render(request,"Admin/ChittyApplicationReport.html",{'data':datas})
+    else:
+        return render(request,"Admin/ChittyApplicationReport.html")

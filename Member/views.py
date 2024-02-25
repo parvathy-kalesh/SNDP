@@ -76,8 +76,8 @@ def changep(request):
             msg="incorrect password"
             return render(request,"Member/ChangePassword.html",{'msg':msg})
     else:
-        msg="password changed"
-        return render(request,"Member/ChangePassword.html",{'msg':msg})
+      
+        return render(request,"Member/ChangePassword.html")
 
 def vchitty(request):
     disdata=tbl_scheme.objects.all()

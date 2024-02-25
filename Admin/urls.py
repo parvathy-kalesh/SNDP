@@ -45,6 +45,9 @@ urlpatterns = [
     path('secretary/',views.secretary,name="Secretary"),
     path('president/',views.president,name="President"),
     path('conviner/',views.conviner,name="conviner"),
+    path('loanapplicationreport/',views.loanreport,name="LoanApplicationReport"),
+    path('scholarapplicationreport/',views.scholarreport,name="ScholarApplicationReport"),
+    path('chittyapplicationreport/',views.chittyreport,name="ChittyApplicationReport"),
 
    
 ]
