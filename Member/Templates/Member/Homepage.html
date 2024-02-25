@@ -81,15 +81,7 @@ https://templatemo.com/tm-569-edu-meeting
                           <!-- <li><a href="meetings.html">Meetings</a></li> -->
                           <li class="has-sub">
                             <a href="javascript:void(0)">Collection &Events</a>
-                            <ul class="sub-menu">
-                              {% if data.gender == "Female" or data1.gender == "Female" %}
-                                <li><a href="{% url 'Member:viewweeklycollection'  %}">View Weekly Collection</a></li>
-                                {% endif %}
-                                {% if data1 %} 
-                                <li><a href="{% url 'Member:viewmonthlycollection' %}">Monthly Collection Deatils</a></li>
-                                {% endif %}
-                              
-                            </ul>
+                           
                         </li>
                           <!-- <li class="scroll-to-section"><a href="#apply">Apply Now</a></li> -->
                           <li class="has-sub">
@@ -123,7 +115,7 @@ https://templatemo.com/tm-569-edu-meeting
                         <li class="has-sub">
                           <a href="javascript:void(0)">Relative Add</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url 'Member:relatives' %}">Add</a></li>
+                              <li><a href="{% url 'Member:Relative' %}">Add</a></li>
                              
                             <li></li>
                           </ul>

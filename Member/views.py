@@ -10,10 +10,10 @@ from datetime import date
 def homepage(request):
     if 'mid' in request.session:
         udata=tbl_memberadding.objects.get(id=request.session['mid'])
-        return render(request,"Member/Homepage.html",{'mdata':udata})
+        return render(request,"Member/Homepage.html",{'data1':udata})
     elif 'reid' in request.session:
         udata=tbl_relatives.objects.get(id=request.session['reid'])
-        return render(request,"Member/Homepage.html",{'udata':udata})
+        return render(request,"Member/Homepage.html",{'data':udata})
     else:
         return redirect("Guest:Login")
 
