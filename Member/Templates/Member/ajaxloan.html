@@ -1,19 +1,19 @@
-<table align="center"  style="margin-bottom: 200px;" id="loan">
-    <tr>
+<div class="container" id="loan">
+    <div class="row justify-content-center" style="margin-bottom: 200px;">
         {% for i in subcat %}
-        <td>
-            <div style="border:1px solid black;margin:20px;padding:10px">
-              <p>Chitty Name : {{i.loan_name}}</p>
-               <p>Chitty Details : {{i.loan_details}}</p>
-               <p>Scheme Type : {{i.loan_type.loan_name}}</p>
-               <a href="{% url 'Member:LoanApply' i.id %}">apply</a><br>
-               
-                   </div>
-</td>
-{% if forloop.counter|divisibleby:4 %}
-</tr>
-<tr>
-
-    {% endif %}
-    {% endfor %}
-    </table>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Loan Name: {{ i.loan_name }}</h5>
+                        <p class="card-text">Loan Details: {{ i.loan_details }}</p>
+                        <p class="card-text">Loan Type: {{ i.loan_type.loan_name }}</p>
+                        <a href="{% url 'Member:LoanApply' i.id %}" class="btn btn-primary">Apply</a>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:4 %}
+                </div><div class="row justify-content-center">
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
