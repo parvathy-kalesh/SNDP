@@ -55,3 +55,35 @@ class tbl_voting(models.Model):
     electionapply=models.ForeignKey(tbl_electionapply,on_delete=models.CASCADE)
     member=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
     relative=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)
+
+
+class tbl_monthlycollectionpayment(models.Model):
+    monthlycollection_id=models.ForeignKey(tbl_monthlycollection,on_delete=models.CASCADE)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.CASCADE)
+    payment_date=models.DateField(auto_now_add=True)
+
+class tbl_weeklycollectionpayment(models.Model):
+    weeklycollection_id=models.ForeignKey(tbl_weeklycollection,on_delete=models.CASCADE)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
+    relative=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)
+    payment_date=models.DateField(auto_now_add=True)
+
+class tbl_complaint(models.Model):
+    title=models.CharField(max_length=50)
+    status=models.IntegerField(default=0)
+    content=models.CharField(max_length=50)
+    reply=models.CharField(max_length=50)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
+    relative=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)
+
+
+class tbl_feedback(models.Model):
+    content=models.CharField(max_length=50)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
+    relative=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)
+
+class tbl_repaymentloan(models.Model):
+    loanapply=models.ForeignKey(tbl_loanapply,on_delete=models.CASCADE)
+    member=models.ForeignKey(tbl_memberadding,on_delete=models.CASCADE)
+    repayment_date=models.DateField(auto_now_add=True)
+    

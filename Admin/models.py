@@ -54,5 +54,11 @@ class tbl_electiondeclaration(models.Model):
     redate=models.DateField()
     podate=models.DateField(auto_now_add=True)
 
+
+class tbl_events(models.Model):
+    name=models.CharField(max_length=50)
+    details=models.CharField(max_length=100)
+    date=models.DateField()
+
     
 
