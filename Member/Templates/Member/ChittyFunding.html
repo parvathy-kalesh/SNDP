@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" align="center">
+            <tr>
+                <td>proof</td>
+                <td><select name="select_proof" id="" enctype="multipart/form-data">
+                    <option> --select--</option>
+                    {% for i in ptype %}
+                    <option value="{{ i.id }}">{{ i.proof_name }}</option>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>document</td>
+                <td><input type="file" id="doc" name="doc" required="" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_save " id="" value="submit">
+                    <input type="reset" name="btn_cancel" id="" value="cancel">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    
+</body>
+</html>

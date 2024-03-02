@@ -17,6 +17,7 @@ urlpatterns = [
      path('rejectchiity/<int:did>',views.rejectchitty,name="rejectchitty"),
      path('acceptloan/<int:did>',views.acceptloan,name="acceptloan"),
      path('rejectloan/<int:did>',views.rejectloan,name="rejectloan"),
+     path('ViewChittyFunding/',views.viewchittyfunding,name="ViewChittyFunding"),
      
 
 

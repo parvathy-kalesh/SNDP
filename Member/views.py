@@ -252,7 +252,7 @@ def loanapply(request,lnid):
         prooftype=tbl_proof.objects.all() 
         memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
         loan=tbl_addloanname.objects.get(id=lnid)
-        if request.method=="POST" and request.FILES:
+        if request.method=="POST":
            
             ptype=tbl_proof.objects.get(id=request.POST.get('ptype'))
             tbl_loanapply.objects.create(member_name=memberdata,loan_name=loan,
@@ -311,8 +311,8 @@ def scholarshipstatus(request):
 def chittystatusview(request):
     if 'mid' in request.session:
         memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
-        mdata=tbl_chittyjoin.objects.filter(memberdata=memberdata)
-        return render(request,"Member/ChittyStatusview.html",{'chittystatusview':mdata,'data1':memberdata})
+        mdata=tbl_chittyjoin.objects.filter(member_name=memberdata)
+        return render(request,"Member/ChittyStatus.html",{'chittystatusview':mdata,'data1':memberdata})
     elif 'reid' in request.session:
         rdata=tbl_relatives.objects.get(id=request.session["reid"])
         data=tbl_chittyjoin.objects.filter(relative_name=rdata)
@@ -447,8 +447,44 @@ def results(request):
     return render(request,"Admin/Secretary.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
 
 
-def funding(request):
-    return render(request,"Member/ChittyFunding.html")
+def funding(request,vid):
+    prooftype=tbl_proof.objects.all() 
+    if 'mid' in request.session :
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        chittydata=tbl_chitty.objects.get(id=vid)
+        if request.method=="POST":
+            ptype=tbl_proof.objects.get(id=request.POST.get('select_proof'))
+            tbl_chittyfunding.objects.create(member_name=memberdata,chitty_name=chittydata,
+            proof_name=ptype,document=request.FILES.get('doc'))
+            return render(request,"Member/ChittyFunding.html",{'cdata':chittydata,'ptype':prooftype,'data1':memberdata})
+        else:
+            return render(request,"Member/ChittyFunding.html",{'cdata':chittydata,'ptype':prooftype,'data1':memberdata})
+    elif 'reid' in request.session:
+        rdata=tbl_relatives.objects.get(id=request.session["reid"])
+        chittydata=tbl_chitty.objects.get(id=vid)
+        if request.method=="POST":
+            ptype=tbl_proof.objects.get(id=request.POST.get('ptype'))
+            tbl_chittyjoin.objects.create(relative_name=rdata,chitty_name=chittydata,
+            proof_name=ptype,document=request.FILES.get('doc'))
+            return render(request,"Member/ChittyFunding.html",{'cdata':chittydata,'ptype':prooftype,'data':rdata})
+        else:
+            return render(request,"Member/ChittyFunding.html",{'cdata':chittydata,'ptype':prooftype,'data':rdata})
+    else:
+        return render(request,"Member/ChittyFunding.html",{'cdata':chittydata,'ptype':prooftype,'data':rdata})
+
+
+def viewchittyfunding(request):
+   
+    if 'mid' in request.session:
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        data=tbl_chittyfunding.objects.filter(member_name=mdata)
+        return render(request,"Member/ViewChittyFunding.html",{'datas':data,'data1':mdata})
+    elif 'reid' in request.session:
+        mdata=tbl_relatives.objects.get(id=request.session["reid"])
+        data=tbl_chittyjoin.objects.filter(relative_name=mdata)
+        return render(request,"Member/ViewChittyFunding.html",{'datas':data,'data':mdata})
+    else:
+        return render(request,"Member/ViewChittyFunding.html",{'datas':data})
 
 
 

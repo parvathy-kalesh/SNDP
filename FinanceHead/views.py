@@ -119,3 +119,10 @@ def rejectloan(request,did):
     data.status=2
     data.save()
     return redirect("FinanceHead:ViewLoanApply")
+
+def viewchittyfunding(request):
+    mdata=tbl_memberadding.objects.all()
+    rdata=tbl_relatives.objects.all()
+    mappdata=tbl_chittyfunding.objects.filter(member_name__in=mdata)
+    rappdata=tbl_chittyfunding.objects.filter(relative_name__in=rdata)
+    return render(request,"FinanceHead/ViewChittyFunding.html",{'data':mappdata,'data1':rappdata})

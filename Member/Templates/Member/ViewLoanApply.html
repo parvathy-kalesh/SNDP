@@ -182,12 +182,14 @@ https://templatemo.com/tm-569-edu-meeting
             <td>{{i.loan_name.loan_name}}</td>
             <td>{{i.proof_name.proof_name}}</td>
             <td>{{i.member_name.member_name}}</td>
-            <td>reject/accept</td>
+            <td>{% if i.status == 1 %}
+              <p></p>
+            </td>
         </tr>
         {% endfor %}
-        {% elif data %}
+     
 
-        {% for i in data %}
+      
     </table>
 </form>
 </body>

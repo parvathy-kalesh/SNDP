@@ -182,7 +182,7 @@ https://templatemo.com/tm-569-edu-meeting
     {% else %}
     <p >rejected</p>
     {% endif %}
-   <p><a href="{% url 'Member:ViewCandidates' i.id %}">chitty funding</a></p> 
+   <p><a href="{% url 'Member:ChittyFunding' i.chittydata.id %}">chitty funding</a></p> 
 </td>
  
 </tr>
@@ -202,11 +202,11 @@ https://templatemo.com/tm-569-edu-meeting
     {% if i.status == 0 %}
     <p >Application on process</p>
     {% elif i.status == 1 %}
-    <p >Application accepted</p>
+    <p >Application accepted|<a href="{% url 'Member:ChittyFunding' i.chittydata.id %}">chitty funding</a> </p>
     {% else %}
     <p >rejected</p>
     {% endif %}
-    <p><a href="{% url 'Member:ChittyFunding' i.id %}">chitty funding</a></p> 
+    
   
 </td>
 
