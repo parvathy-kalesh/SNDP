@@ -162,6 +162,8 @@ https://templatemo.com/tm-569-edu-meeting
         
         <td>chitty Name</td>
         <td> chitty Status</td>
+        <td> chitty funding</td>
+
         
     </tr>
    
@@ -180,6 +182,7 @@ https://templatemo.com/tm-569-edu-meeting
     {% else %}
     <p >rejected</p>
     {% endif %}
+   <p><a href="{% url 'Member:ViewCandidates' i.id %}">chitty funding</a></p> 
 </td>
  
 </tr>
@@ -203,6 +206,8 @@ https://templatemo.com/tm-569-edu-meeting
     {% else %}
     <p >rejected</p>
     {% endif %}
+    <p><a href="{% url 'Member:ChittyFunding' i.id %}">chitty funding</a></p> 
+  
 </td>
 
 </tr>

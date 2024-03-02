@@ -447,5 +447,9 @@ def results(request):
     return render(request,"Admin/Secretary.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
 
 
-      
+def funding(request):
+    return render(request,"Member/ChittyFunding.html")
+
+
+
 

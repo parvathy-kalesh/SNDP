@@ -34,6 +34,7 @@ urlpatterns = [
      path('Vote/<int:vid>',views.votenow,name="Vote"),
      path('Voting/<int:vid>',views.voting,name="Voting"),
      path('results/',views.results,name="results"),
+     path('ChittyFunding/<int:vid>',views.funding,name="ChittyFunding"),
 
     
 ]

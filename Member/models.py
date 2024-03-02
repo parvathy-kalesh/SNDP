@@ -86,4 +86,11 @@ class tbl_repaymentloan(models.Model):
     loanapply=models.ForeignKey(tbl_loanapply,on_delete=models.CASCADE)
     member=models.ForeignKey(tbl_memberadding,on_delete=models.CASCADE)
     repayment_date=models.DateField(auto_now_add=True)
-    
+
+class tbl_chittyfunding(models.Model):
+    chitty_name=models.ForeignKey(tbl_chitty,on_delete=models.CASCADE)
+    document=models.FileField(upload_to='Doc/')
+    member_name=models.ForeignKey(tbl_memberadding,on_delete=models.SET_NULL,null=True)
+    relative_name=models.ForeignKey(tbl_relatives,on_delete=models.SET_NULL,null=True)
+    status=models.IntegerField(default=0)
+    proof_name=models.ForeignKey(tbl_proof,on_delete=models.CASCADE)
