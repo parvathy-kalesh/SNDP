@@ -19,7 +19,20 @@ urlpatterns = [
      path('rejectloan/<int:did>',views.rejectloan,name="rejectloan"),
      path('ViewChittyFunding/',views.viewchittyfunding,name="ViewChittyFunding"),
      
+  path('loancalender/<int:lid>', views.loancalender,name="loancalender"),
+   path('loangviewloanrepayrant/<int:lid>', views.viewloanrepay,name="viewloanrepay"),
+    path('chittycalender/<int:cid>', views.chittycalender,name="chittycalender"),
+    path('deleteloancalender/<int:lid>',views.deleteloancalender,name="deleteloancalender"),
+    path('deletechittycalender/<int:cid>',views.deletechittycalender,name="deletechittycalender"),
 
+
+    path('viewchittypayment/<int:cid>', views.viewchittypay,name="viewchittypay"),
+    path('weeklycollection/', views.weeklycollection,name="weeklycollection"),
+     path('monthlycollection/', views.monthlycollection,name="monthlycollection"),
+    path('deletemonthlycollection/<int:mid>',views.deletemonthlycollection,name="deletemonthlycollection"),
+    path('deleteweeklycollection/<int:wid>',views.deleteweeklycollection,name="deleteweeklycollection"),
+      path('viewweeklycollectionpayment/', views.viewweeklycollectionpayment,name="viewweeklycollectionpayment"),
+    path('viewmonthlycollectionpayment/', views.viewmonthlycollectionpayment,name="viewmonthlycollectionpayment"),
 
     
 ]
