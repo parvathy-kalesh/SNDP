@@ -126,3 +126,130 @@ def viewchittyfunding(request):
     mappdata=tbl_chittyfunding.objects.filter(member_name__in=mdata)
     rappdata=tbl_chittyfunding.objects.filter(relative_name__in=rdata)
     return render(request,"FinanceHead/ViewChittyFunding.html",{'data':mappdata,'data1':rappdata})
+
+def loancalender(request,lid):
+    if 'fhid' in request.session:
+        data=tbl_loancalender.objects.all()
+        if request.method=="POST":
+            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            loanname=tbl_addloanname.objects.get(id=lid)
+            tbl_loancalender.objects.create(amount=request.POST.get('txt_rs'),
+            no_installment=request.POST.get('txt_in'),
+            startdate=request.POST.get('sdate'),
+            enddate=request.POST.get('edate'),head=headdata,loan_name=loanname)
+            return redirect("FinanceHead:addloan")
+        else:
+
+            return render(request,"FinanceHead/loancalender.html",{'data':data})
+    else:
+        return redirect("Guest:Login")   
+
+
+def viewloanrepay(request,lid):
+    if 'fhid' in request.session:
+        loanapp=tbl_loanapply.objects.get(id=lid)
+        datacount=tbl_repaymentloan.objects.filter(loanapply=loanapp).count()
+        loannames=loanapp.loan_name.id
+        loancalender=tbl_loancalender.objects.get(loan_name=loannames)
+        installments=int(loancalender.no_installment)
+        array=[i for i in range(1,installments+1)]
+        return render(request,"FinanceHead/ViewRepayment.html",{'data':datacount,'paynumber':loancalender,'array':array})
+    else:
+        return redirect("Guest:Login")
+
+def chittycalender(request,cid):
+    if 'fhid' in request.session:
+        data=tbl_chittycalender.objects.all()
+        if request.method=="POST":
+            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            chittyname=tbl_chitty.objects.get(id=cid)
+            tbl_chittycalender.objects.create(amount=request.POST.get('txt_rs'),
+            no_installment=request.POST.get('txt_in'),
+            startdate=request.POST.get('sdate'),
+            enddate=request.POST.get('edate'),head=headdata,chitty_name=chittyname)
+            return redirect("FinanceHead:chitty")
+        else:
+            return render(request,"FinanceHead/chittycalender.html",{'data':data})
+    else:
+        return redirect("Guest:Login")
+
+def deleteloancalender(request,lid):
+    tbl_loancalender.objects.get(id=lid).delete()
+    return redirect("FinanceHead:loancalender")
+
+def deletechittycalender(request,cid):
+    tbl_chittycalender.objects.get(id=cid).delete()
+    return redirect("FinanceHead:chittycalender")
+
+
+def viewchittypay(request,cid):
+    if 'fhid' in request.session:
+        chittyapp=tbl_chittyjoin.objects.get(id=cid)
+        datacount=tbl_paymentchitty.objects.filter(chitty_apply=chittyapp).count()
+        chittyname=chittyapp.chittydata.id
+        chittycalender=tbl_chittycalender.objects.get(chitty_name=chittyname)
+        installments=int(chittycalender.no_installment)
+        array=[i for i in range(1,installments+1)]
+        return render(request,"FinanceHead/viewchittypayment.html",{'data':datacount,'paynumber':chittycalender,'array':array})
+    else:
+        return redirect("Guest:Login")
+
+def weeklycollection(request):
+    if 'fhid' in request.session:
+        data=tbl_weeklycollection.objects.all()
+        if request.method=="POST":
+            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+       
+            tbl_weeklycollection.objects.create(amount=request.POST.get('txt_amount'),
+            head=headdata)
+            return redirect("FinanceHead:weeklycollection")
+        else:
+            return render(request,"FinanceHead/weeklycollection.html",{'data':data})
+    else:
+        return redirect("Guest:Login")
+
+
+def monthlycollection(request):
+    if 'fhid' in request.session:
+        data=tbl_monthlycollection.objects.all()
+        if request.method=="POST":
+            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+       
+            tbl_monthlycollection.objects.create(amount=request.POST.get('txt_amount'),
+            head=headdata)
+            return redirect("FinanceHead:monthlycollection")
+        else:
+            return render(request,"FinanceHead/monthlycollection.html",{'data':data})
+    else:
+        return redirect("Guest:Login")
+
+def deletemonthlycollection(request,mid):
+    tbl_monthlycollection.objects.get(id=mid).delete()
+    return redirect("FinanceHead:monthlycollection")
+
+def deleteweeklycollection(request,wid):
+    tbl_weeklycollection.objects.get(id=wid).delete()
+    return redirect("FinanceHead:weeklycollection")
+
+
+def viewweeklycollectionpayment(request):
+    if 'fhid' in request.session:
+        rdata=tbl_relatives.objects.all()
+        data=tbl_weeklycollectionpayment.objects.all()
+    #datacount=tbl_weeklycollectionpayment.objects.filter(relative_name=rdata).count
+    #dcount=tbl_weeklycollectionpayment.objects.filter(weeklycollection_id=datacount)
+    
+        return render(request,"FinanceHead/viewweeklycollectionpayment.html",{'data':data})
+    else:
+        return redirect("Guest:Login")
+
+def viewmonthlycollectionpayment(request):
+    if 'fhid' in request.session:
+    #rdata=tbl_relatives.objects.all()
+        data=tbl_monthlycollectionpayment.objects.all()
+    #datacount=tbl_weeklycollectionpayment.objects.filter(relative_name=rdata).count
+    #dcount=tbl_weeklycollectionpayment.objects.filter(weeklycollection_id=datacount)
+    
+        return render(request,"FinanceHead/viewmonthlycollectionpayment.html",{'data':data})
+    else:
+        return redirect("Guest:Login")

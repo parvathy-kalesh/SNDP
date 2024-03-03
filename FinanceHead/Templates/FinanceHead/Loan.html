@@ -51,7 +51,7 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{i.loan_name}}</td>
                 <td>{{i.loan_details}}</td>
-                <td><a href="{% url 'FinanceHead:del_loan' i.id %}">Delete</a>
+                <td><a href="{% url 'FinanceHead:del_loan' i.id %}">Delete</a>|<a href="{% url 'FinanceHead:loancalender' i.id %}">Monthly payment calender</a></td>
               
             </tr>
             {% endfor %}

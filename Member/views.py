@@ -488,4 +488,267 @@ def viewchittyfunding(request):
 
 
 
+def add_months_with_year_change(start_date, n_months):
+    result_dates = []
+    current_date = start_date
+
+    for _ in range(n_months):
+        # Add one month to the current date using relativedelta
+        current_date += relativedelta(months=1)
+
+        # Append the current date to the array
+        result_dates.append(current_date)
+    #print(result_dates)
+    return result_dates
+# Create your views here.
+
+def add_months(start_date, n):
+    month = start_date.month - 1 + n
+    year = start_date.year + month // 12
+    month = month % 12 + 1
+    day = min(start_date.day, (start_date.replace(year=year, month=month + 1, day=1) - timedelta(days=1)).day)
+    return start_date.replace(year=year, month=month, day=day)
+
+
+def loanpay(request,lpid):
+    if 'mid' in request.session:
+        darray=[]
+        cdate=date.today()
+        #data=tbl_loancalender.objects.all() 
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        loandata=tbl_addloanname.objects.get(id=lpid)
+        payno=tbl_loancalender.objects.get(loan_name=loandata)
+        loanapp=tbl_loanapply.objects.get(loan_name=loandata,member_name=memberdata)
+
+        ###########################################################################
+        ldate=loanapp.apply_date
+        
+    
+        ###########################################################################
+        loanrapycount=tbl_repaymentloan.objects.filter(loanapply=loanapp).count()
+        pay=int(payno.no_installment)
+        parray=[i for i  in range(1,pay+1)]
+        startdate=add_months(ldate,1)
+        print(startdate)
+        startdate=str(startdate)
+        date_object = datetime.strptime(startdate, "%Y-%m-%d")
+        resultarray=add_months_with_year_change(date_object,pay)
+        for dates in resultarray:
+            darray.append(dates.strftime("%Y-%m-%d"))
+        print(darray)
+        # darray=[]
+        # j=0
+        # darray.append(startdate)
+        # ldate=startdate
+        # for i in parray:
+        #     ldate=str(ldate)
+            # print("First Time:") 
+            # print(type(ldate))
+            # date_object = datetime.strptime(ldate, "%Y-%m-%d")
+            # ldate= date_object
+            # print("Second Time:") 
+            # print(type(ldate))
+            # month = date_object.month
+            # if i%12==0:
+            #     res=i//12
+            #     ldate=add_months(ldate,res)
+            #     edate=str(ldate)
+            #     darray.append(edate)
+            # else:
+            #     res=i%12
+            #     ldate=add_months(ldate,res)
+            #     edate=str(ldate)
+            #     darray.append(edate)
+            # print("Third Time:") 
+            # print(type(ldate))
+            #if month>=12:
+                #pass
+                # j=j+1
+                # ldate=add_months(ldate,j)
+                # print(type(ldate))
+            #else:
+            #    pass
+                # ldate=add_months(ldate,i)
+                # print(type(ldate))
+
+            
+                # print(emiadte)
+        datas=zip(parray,darray)
+        return render(request,"Member/loanpay.html",{'paynumber':payno,'array':datas,'paycount':loanrapycount,'cdate':cdate,'data1':memberdata})
+    else:
+        return redirect("Guest:login")
+
+def repaymentloan(request,lid):
+    if 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        londata=tbl_addloanname.objects.get(id=lid)
+        if request.method=="POST":
+            loanappdata=tbl_loanapply.objects.get(member_name=memberdata,loan_name=londata)
+            tbl_repaymentloan.objects.create(loanapply=loanappdata,member=memberdata)
+            return redirect("Member:runpayment")
+        else:
+            return render(request,"Member/DesignPayment.html")
+    else:
+        return redirect("Guest:login")
+
+def chittypay(request,cpid):
+    #data=tbl_loancalender.objects.all() 
+    darray=[]
+    cdate=date.today()
+    if 'mid' in request.session:
+
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        cdata=tbl_chitty.objects.get(id=cpid)
+        payno=tbl_chittycalender.objects.get(chitty_name=cdata)
+        chittyapp=tbl_chittyjoin.objects.get(chittydata=cdata,memberdata=mdata)
+        chittypaycount=tbl_paymentchitty.objects.filter(chitty_apply=chittyapp).count()
+        pay=int(payno.no_installment)
+        parray=[i for i  in range(1,pay+1)]
+        ldate=chittyapp.apply_date
+        startdate=add_months(ldate,1)
+        print(startdate)
+        startdate=str(startdate)
+        date_object = datetime.strptime(startdate, "%Y-%m-%d")
+        resultarray=add_months_with_year_change(date_object,pay)
+        for dates in resultarray:
+            darray.append(dates.strftime("%Y-%m-%d"))
+        print(darray)
+        datas=zip(parray,darray)
+        return render(request,"Member/chittypay.html",{'paynumber':payno,'array':datas,
+        'paycount':chittypaycount,'data1':mdata})
+    elif 'reid' in request.session:
+        rdata=tbl_relatives.objects.get(id=request.session["reid"])
+        cdata=tbl_chitty.objects.get(id=cpid)
+        payno=tbl_chittycalender.objects.get(chitty_name=cdata)
+        chittyapp=tbl_chittyjoin.objects.get(chittydata=cdata,relative=rdata)
+        chittypaycount=tbl_paymentchitty.objects.filter(chitty_apply=chittyapp).count()
+        pay=int(payno.no_installment)
+        parray=[i for i  in range(1,pay+1)]
+        ldate=chittyapp.apply_date
+        startdate=add_months(ldate,1)
+        print(startdate)
+        startdate=str(startdate)
+        date_object = datetime.strptime(startdate, "%Y-%m-%d")
+        resultarray=add_months_with_year_change(date_object,pay)
+        for dates in resultarray:
+            darray.append(dates.strftime("%Y-%m-%d"))
+        print(darray)
+        datas=zip(parray,darray)
+        return render(request,"Member/chittypay.html",{'paynumber':payno,'array':datas,
+        'paycount':chittypaycount,'data':rdata})
+    else:
+        return redirect("Member:Homepage")
+
+def paymentchitty(request,cid):
+    if request.method=="POST":
+        if 'mid' in request.session:
+
+            mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+            cdata=tbl_chitty.objects.get(id=cid)
+            chittyapplydata=tbl_chittyjoin.objects.get(memberdata=mdata,chittydata=cdata)
+            tbl_paymentchitty.objects.create(chitty_apply=chittyapplydata,memberdata=mdata)
+            return redirect("Member:runpayment")
+        elif 'reid' in request.session:
+            rdata=tbl_relatives.objects.get(id=request.session["reid"])
+            cdata=tbl_chitty.objects.get(id=cid)
+            chittyapplydata=tbl_chittyjoin.objects.get(relative=rdata,chittydata=cdata)
+            tbl_paymentchitty.objects.create(chitty_apply=chittyapplydata,relative=rdata)
+            return redirect("Member:runpayment")
+        else:
+            return redirect("Member:Homepage")
+    else:
+        return render(request,"Member/DesignPayment.html")
+
+
+def viewweeklycollection(request):
+
+    if 'reid' in request.session:
+        relativedata=tbl_relatives.objects.get(id=request.session["reid"])
+        data=tbl_weeklycollection.objects.all().last()
+        cpayment=tbl_weeklycollectionpayment.objects.filter(relative_name=relativedata,
+        weeklycollection_id=data).count()
+        warray=[i for i  in range(1,49)]
+        data=tbl_weeklycollection.objects.all().last()
+        return render(request,"Member/viewweeklycollection.html",{'datas':data,'array':warray,
+        'weekcount':cpayment,'data':relativedata})
+    elif 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        data=tbl_weeklycollection.objects.all().last()
+        cpayment=tbl_weeklycollectionpayment.objects.filter(member_name=memberdata,
+        weeklycollection_id=data).count()
+        warray=[i for i  in range(1,49)]
+        data=tbl_weeklycollection.objects.all().last()
+        return render(request,"Member/viewweeklycollection.html",{'datas':data,'array':warray,
+        'weekcount':cpayment,'data1':memberdata})
+    else:
+        return redirect("Guest:Login")
+        
+def viewmonthlycollection(request):
+    if 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        data=tbl_monthlycollection.objects.all().last()
+        cpayment=tbl_monthlycollectionpayment.objects.filter(member_name=memberdata,monthlycollection_id=data).count()
+        marray=[i for i  in range(1,13)] 
+        return render(request,"Member/viewmonthlycollection.html",{'datas':data,'array':marray,
+        'monthcount':cpayment,'data1':memberdata})
+    else:
+        return redirect("Guest:Login")
+    
+
+# def designpayment(request):
+#     return render(request,"Member/DesignPayment.html")
+
+def paysucessful(request):
+    if 'mid' in request.session:
+        return render(request,"Member/paysucessful.html")
+    elif 'reid' in request.session:
+        return render(request,"Member/paysucessful.html")
+    else:
+       return redirect("Guest:Login")
+    #return render(request,"Member/paysucessful.html")
+
+def runpayment(request):
+    if 'mid' in request.session:
+        return render(request,"Member/runpayment.html")
+    elif 'reid' in request.session:
+        return render(request,"Member/runpayment.html")
+    else:
+        return redirect("Guest:Login")
+    #return render(request,"Member/runpayment.html")
+
+
+
+def weeklycollectionpayment(request,wid):
+    if 'reid' in request.session:
+        rdata=tbl_relatives.objects.get(id=request.session["reid"])
+        wdata=tbl_weeklycollection.objects.get(id=wid)
+        if request.method=="POST":
+            tbl_weeklycollectionpayment.objects.create(relative_name=rdata,weeklycollection_id=wdata)
+            return redirect("Member:runpayment")
+        else:
+            return render(request,"Member/DesignPayment.html")
+    elif 'mid' in request.session:
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+    
+        wdata=tbl_weeklycollection.objects.get(id=wid)
+        if request.method=="POST":
+            tbl_weeklycollectionpayment.objects.create(member_name=mdata,weeklycollection_id=wdata)
+            return redirect("Member:runpayment")
+        else:
+            return render(request,"Member/DesignPayment.html")    
+    else:
+        return redirect("Guest:Login")
+
+def monthlycollectionpayment(request,mcid):
+    medata=tbl_memberadding.objects.get(id=request.session["mid"])
+    
+    mdata=tbl_monthlycollection.objects.get(id=mcid)
+    if request.method=="POST":
+        tbl_monthlycollectionpayment.objects.create(member_name=medata,monthlycollection_id=mdata)
+        return redirect("Member:runpayment")
+    else:
+        return render(request,"Member/DesignPayment.html")
+
+
+
 

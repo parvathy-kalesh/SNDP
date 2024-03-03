@@ -37,5 +37,18 @@ urlpatterns = [
      path('ChittyFunding/<int:vid>',views.funding,name="ChittyFunding"),
      path('viewchittyfunding/',views.viewchittyfunding,name="viewchittyfunding"),
 
-    
+
+    path('viewweeklycollection/', views.viewweeklycollection,name="viewweeklycollection"),
+    path('viewmonthlycollection/', views.viewmonthlycollection,name="viewmonthlycollection"),
+    path('weeklycollectionpayment/<int:wid>', views.weeklycollectionpayment,name="weeklycollectionpayment"),
+    path('monthlycollectionpayment/<int:mcid>', views.monthlycollectionpayment,name="monthlycollectionpayment"),
+
+       path('loanpay/<int:lpid>', views.loanpay,name="loanpay"),
+    path('repaymentloan/<int:lid>', views.repaymentloan,name="repaymentloan"),
+    path('chittypay/<int:cpid>', views.chittypay,name="chittypay"),
+    path('paymentchitty/<int:cid>', views.paymentchitty,name="paymentchitty"),
+
+
+      path('paysucessful/', views.paysucessful,name="paysucessful"),
+    path('runpayment/', views.runpayment,name="runpayment"),
 ]
