@@ -116,7 +116,10 @@
                         <span>Monthly & Weekly Collection</span>
                     </a>
                     <ul>
-              
+                        <li><a href="{% url 'FinanceHead:weeklycollection' %}">Add weekly collection</a></li>
+                        <li><a href="{% url 'FinanceHead:monthlycollection' %}">Add monthly collection</a></li>
+                        <li> <a href="{% url 'FinanceHead:viewweeklycollectionpayment' %}">View weekly collection payment</a></li>
+                        <li><a href="{% url 'FinanceHead:viewmonthlycollectionpayment' %}">View monthly collection payment</a></li>
                     </ul>
                 </li>
 
