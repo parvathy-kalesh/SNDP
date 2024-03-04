@@ -11,46 +11,46 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #bdc4db;
             margin: 0;
             padding: 0;
         }
 
-        h2 {
-            text-align: center;
-            margin-top: 20px;
-        }
-
         form {
-            text-align: center;
-            margin-bottom: 20px;
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         table {
             border-collapse: collapse;
-            margin: 0 auto;
             width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         table,
         th,
         td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            border: 1px solid #ffffff;
+            padding: 8px;
             text-align: left;
         }
 
         th {
             background-color: #f2f2f2;
-            font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
         }
 
         tr:hover {
-            background-color: #d2e6e9;
+            background-color:#d2e6e9;
         }
 
         input[type="text"],
@@ -67,14 +67,14 @@
 
         input[type="submit"],
         input[type="reset"] {
-            background-color: #13547a;;
+            background-color: #13547a;
             color: white;
             cursor: pointer;
         }
 
         input[type="submit"]:hover,
         input[type="reset"]:hover {
-            background-color: #13547a;;
+            background-color:#13547a;;
         }
 
         a {
@@ -90,10 +90,10 @@
 </head>
 
 <body>
-    <h2>Manage Scholarship Types</h2>
+    <h2 align="center">Manage Scholarship Types</h2>
     <form action="" method="post">
         {% csrf_token %}
-        <table border="0" align="center">
+        <table border="0" align="center" >
             <tr>
                 <td>Scholarship Type</td>
                 <td><input type="text" name="txt_scholar" id="" value="{{edis.scholarship_type}}" required="" autocomplete="off"> </td>
@@ -107,7 +107,7 @@
         </table>
     </form>
     <br><br>
-    <table border="1" align="center" cellpadding="3">
+    <table border="1" align="center" cellpadding="3" style="width:50%">
         <tr>
             <th>Sl. No</th>
             <th>Scholarship Type</th>

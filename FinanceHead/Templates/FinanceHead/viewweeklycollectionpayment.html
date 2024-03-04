@@ -29,9 +29,9 @@
             {% for i in data %}
             <tr>
                 <td>{{forloop.counter}}</td>
-                <td>{{i.relative_name.relative_name}}</td>
-                <td>{{i.relative_name.contact}}</td>
-                <td>{{i.relative_name.email}}</td>
+                <td>{{i.relative.relative_name}}</td>
+                <td>{{i.relative.contact}}</td>
+                <td>{{i.relative.email}}</td>
                 <td>{{i.weeklycollection_id.amount}}</td>
                 
             </tr>

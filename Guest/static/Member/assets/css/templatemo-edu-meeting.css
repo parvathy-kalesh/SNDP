@@ -818,7 +818,7 @@ services
 .services .owl-nav .owl-prev{
   margin-right: 10px;
   outline: none;
-  position: absolute;
+  position: absolute;   
   left: -80px;
 }
 
@@ -1255,7 +1255,7 @@ our facts
 */
 
 section.our-facts {
-  background-image: url(../images/mf.png);
+  background-image: url(../images/halo.jpg);
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;

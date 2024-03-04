@@ -665,7 +665,7 @@ def viewweeklycollection(request):
     if 'reid' in request.session:
         relativedata=tbl_relatives.objects.get(id=request.session["reid"])
         data=tbl_weeklycollection.objects.all().last()
-        cpayment=tbl_weeklycollectionpayment.objects.filter(relative_name=relativedata,
+        cpayment=tbl_weeklycollectionpayment.objects.filter(relative=relativedata,
         weeklycollection_id=data).count()
         warray=[i for i  in range(1,49)]
         data=tbl_weeklycollection.objects.all().last()
@@ -674,7 +674,7 @@ def viewweeklycollection(request):
     elif 'mid' in request.session:
         memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
         data=tbl_weeklycollection.objects.all().last()
-        cpayment=tbl_weeklycollectionpayment.objects.filter(member_name=memberdata,
+        cpayment=tbl_weeklycollectionpayment.objects.filter(member=memberdata,
         weeklycollection_id=data).count()
         warray=[i for i  in range(1,49)]
         data=tbl_weeklycollection.objects.all().last()
@@ -687,7 +687,7 @@ def viewmonthlycollection(request):
     if 'mid' in request.session:
         memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
         data=tbl_monthlycollection.objects.all().last()
-        cpayment=tbl_monthlycollectionpayment.objects.filter(member_name=memberdata,monthlycollection_id=data).count()
+        cpayment=tbl_monthlycollectionpayment.objects.filter(member=memberdata,monthlycollection_id=data).count()
         marray=[i for i  in range(1,13)] 
         return render(request,"Member/viewmonthlycollection.html",{'datas':data,'array':marray,
         'monthcount':cpayment,'data1':memberdata})
@@ -723,7 +723,7 @@ def weeklycollectionpayment(request,wid):
         rdata=tbl_relatives.objects.get(id=request.session["reid"])
         wdata=tbl_weeklycollection.objects.get(id=wid)
         if request.method=="POST":
-            tbl_weeklycollectionpayment.objects.create(relative_name=rdata,weeklycollection_id=wdata)
+            tbl_weeklycollectionpayment.objects.create(relative=rdata,weeklycollection_id=wdata)
             return redirect("Member:runpayment")
         else:
             return render(request,"Member/DesignPayment.html")
@@ -732,7 +732,7 @@ def weeklycollectionpayment(request,wid):
     
         wdata=tbl_weeklycollection.objects.get(id=wid)
         if request.method=="POST":
-            tbl_weeklycollectionpayment.objects.create(member_name=mdata,weeklycollection_id=wdata)
+            tbl_weeklycollectionpayment.objects.create(member=mdata,weeklycollection_id=wdata)
             return redirect("Member:runpayment")
         else:
             return render(request,"Member/DesignPayment.html")    
@@ -744,7 +744,7 @@ def monthlycollectionpayment(request,mcid):
     
     mdata=tbl_monthlycollection.objects.get(id=mcid)
     if request.method=="POST":
-        tbl_monthlycollectionpayment.objects.create(member_name=medata,monthlycollection_id=mdata)
+        tbl_monthlycollectionpayment.objects.create(member=medata,monthlycollection_id=mdata)
         return redirect("Member:runpayment")
     else:
         return render(request,"Member/DesignPayment.html")

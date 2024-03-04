@@ -128,10 +128,10 @@ def viewchittyfunding(request):
     return render(request,"FinanceHead/ViewChittyFunding.html",{'data':mappdata,'data1':rappdata})
 
 def loancalender(request,lid):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         data=tbl_loancalender.objects.all()
         if request.method=="POST":
-            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            headdata=tbl_financehead.objects.get(id=request.session["fid"])
             loanname=tbl_addloanname.objects.get(id=lid)
             tbl_loancalender.objects.create(amount=request.POST.get('txt_rs'),
             no_installment=request.POST.get('txt_in'),
@@ -146,7 +146,7 @@ def loancalender(request,lid):
 
 
 def viewloanrepay(request,lid):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         loanapp=tbl_loanapply.objects.get(id=lid)
         datacount=tbl_repaymentloan.objects.filter(loanapply=loanapp).count()
         loannames=loanapp.loan_name.id
@@ -158,7 +158,7 @@ def viewloanrepay(request,lid):
         return redirect("Guest:Login")
 
 def chittycalender(request,cid):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         data=tbl_chittycalender.objects.all()
         if request.method=="POST":
             headdata=tbl_financehead.objects.get(id=request.session["fhid"])
@@ -183,7 +183,7 @@ def deletechittycalender(request,cid):
 
 
 def viewchittypay(request,cid):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         chittyapp=tbl_chittyjoin.objects.get(id=cid)
         datacount=tbl_paymentchitty.objects.filter(chitty_apply=chittyapp).count()
         chittyname=chittyapp.chittydata.id
@@ -195,10 +195,10 @@ def viewchittypay(request,cid):
         return redirect("Guest:Login")
 
 def weeklycollection(request):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         data=tbl_weeklycollection.objects.all()
         if request.method=="POST":
-            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            headdata=tbl_financehead.objects.get(id=request.session["fid"])
        
             tbl_weeklycollection.objects.create(amount=request.POST.get('txt_amount'),
             head=headdata)
@@ -210,10 +210,10 @@ def weeklycollection(request):
 
 
 def monthlycollection(request):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         data=tbl_monthlycollection.objects.all()
         if request.method=="POST":
-            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            headdata=tbl_financehead.objects.get(id=request.session["fid"])
        
             tbl_monthlycollection.objects.create(amount=request.POST.get('txt_amount'),
             head=headdata)
@@ -233,7 +233,7 @@ def deleteweeklycollection(request,wid):
 
 
 def viewweeklycollectionpayment(request):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
         rdata=tbl_relatives.objects.all()
         data=tbl_weeklycollectionpayment.objects.all()
     #datacount=tbl_weeklycollectionpayment.objects.filter(relative_name=rdata).count
@@ -244,7 +244,7 @@ def viewweeklycollectionpayment(request):
         return redirect("Guest:Login")
 
 def viewmonthlycollectionpayment(request):
-    if 'fhid' in request.session:
+    if 'fid' in request.session:
     #rdata=tbl_relatives.objects.all()
         data=tbl_monthlycollectionpayment.objects.all()
     #datacount=tbl_weeklycollectionpayment.objects.filter(relative_name=rdata).count

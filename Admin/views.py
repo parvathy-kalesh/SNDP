@@ -204,9 +204,9 @@ def mreg(request):
         location = locationid,
         photo = request.FILES.get("txt_pic"),
         password = request.POST.get("txt_pass"),age=request.POST.get('txt_age'))
-        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata})
+        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata,'disdata':disdata})
     else:
-        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata}) 
+        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata,'disdata':disdata}) 
 
 def ajax_locatiom(request):
    plaob=tbl_place.objects.get(id=request.GET.get('Pla'))
