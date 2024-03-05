@@ -48,6 +48,7 @@ urlpatterns = [
     path('loanapplicationreport/',views.loanreport,name="LoanApplicationReport"),
     path('scholarapplicationreport/',views.scholarreport,name="ScholarApplicationReport"),
     path('chittyapplicationreport/',views.chittyreport,name="ChittyApplicationReport"),
-
+     path('events/', views.events,name="events"),
+    path('deleteevents/<int:enid>', views.deleteevents,name="deleteevents"),
    
 ]

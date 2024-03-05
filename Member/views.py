@@ -750,5 +750,14 @@ def monthlycollectionpayment(request,mcid):
         return render(request,"Member/DesignPayment.html")
 
 
-
+def viewevents(request):
+    data=tbl_events.objects.all()
+    if 'mid' in request.session:
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        return render(request,"Member/viewevents.html",{'datas':data,'data1':mdata})
+    elif 'reid' in request.session:
+        mdata=tbl_relatives.objects.get(id=request.session["reid"])
+        return render(request,"Member/viewevents.html",{'datas':data,'data':mdata})
+    else:
+        return redirect("Guest:login")
 

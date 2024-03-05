@@ -383,3 +383,16 @@ def chittyreport(request):
             return render(request,"Admin/ChittyApplicationReport.html",{'data':datas})
     else:
         return render(request,"Admin/ChittyApplicationReport.html")
+
+
+def events(request):
+    data=tbl_events.objects.all()
+    if request.method=="POST":
+        tbl_events.objects.create(name=request.POST.get('txt_name'),details=request.POST.get('txt_details'),event_date=request.POST.get('txt_date'))
+        return render(request,"Admin/events.html",{'data':data})
+    else:
+        return render(request,"Admin/events.html",{'data':data})
+
+def deleteevents(request,enid):
+    tbl_events.objects.get(id=enid).delete()
+    return redirect("Admin:events") 
