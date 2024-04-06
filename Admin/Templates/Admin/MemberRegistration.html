@@ -96,7 +96,7 @@
         <table align="center" border="1" cellpadding ="10">
             <tr>
                 <td>name</td>
-                <td><input type="text" name="txt_name" id=""  required="" autocomplete="off"></td>
+                <td><input type="text" name="txt_name" id=""  required="" autocomplete="off" pattern="^[A-Z]+[A-Za-z ]*$"></td>
             </tr>
             <tr>
                 <td>age</td>
@@ -104,11 +104,11 @@
             </tr>
             <tr>
                 <td>contact</td>
-                <td><input type="text" name="txt_con" id="" required="" autocomplete="off"></td>
+                <td><input type="text" name="txt_con" id="" required="" autocomplete="off" pattern="[7-9]{1}[0-9]{9}" title="Phone number with 7-9 and remaining 9 digits with 0-9" id="txt_contact" onchange="checknum(this)"><span id="contact"></span></td>
             </tr>
             <tr>
                 <td>email</td>
-                <td><input type="text" name="txt_email" id="" required="" autocomplete="off"></td>
+                <td><input type="text" name="txt_email" id="" required="" autocomplete="off" onchange="emailval(this)"><span id="content"></span></td>
             </tr>
             <tr>
                 <td>Address</td>
@@ -141,7 +141,7 @@
             
             <tr>
                 <td>password</td>
-                <td><input type="password" name="txt_pass" id=""  required="" autocomplete="off"></td>
+                <td><input type="password" name="txt_pass" id=""  required="" autocomplete="off" ></td>
             </tr>
             <tr>
                 <td>confirm password</td>
@@ -207,5 +207,65 @@
                 },
             });
         });
+</script>
+<script>
+    function chkpwd(txtrp, txtp)
+{
+	if((txtrp.value)!=(txtp.value))
+	{
+		document.getElementById("pass").innerHTML = "<span style='color: red;'>Passwords Mismatch</span>";
+	}
+}
+
+function checknum(elem)
+{
+	var numericExpression = /^[0-9]{8,10}$/;
+	if(elem.value.match(numericExpression))
+	{
+		document.getElementById("contact").innerHTML = "";
+		return true;
+	}
+	else
+	{
+		document.getElementById("contact").innerHTML = "<span style='color: red;'>Numbers Only Allowed</span>";
+		elem.focus();
+		return false;
+	}
+}
+
+
+
+function emailval(elem)
+{
+	var emailexp=/^([a-zA-Z0-9.\\-])+\@([a-zA-Z0-9.\\-])+\.([a-zA-Z]{2,4})$/;
+	if(elem.value.match(emailexp))
+	{
+		document.getElementById("content").innerHTML = "";
+		return true;
+	}
+	else
+	{
+		
+		document.getElementById("content").innerHTML ="<span style='color: red;'>Check Email Address Entered</span>";;
+		elem.focus();
+		return false;
+	}
+}
+function nameval(elem)
+{
+	var emailexp=/^([A-Za-z ]*)$/;
+	if(elem.value.match(emailexp))
+	{
+		document.getElementById("name").innerHTML = "";
+		return true;
+	}
+	else
+	{
+		
+		document.getElementById("name").innerHTML = "<span style='color: red;'>Alphabets Are Allowed</span>";
+		elem.focus();
+		return false;
+	}
+}
 </script>
 {% endblock content %}

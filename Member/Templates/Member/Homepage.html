@@ -81,13 +81,17 @@ https://templatemo.com/tm-569-edu-meeting
                           <!-- <li><a href="meetings.html">Meetings</a></li> -->
                           <li class="has-sub">
                             <a href="javascript:void(0)">Collection &Events</a>
-                           
+                            <ul class="sub-menu">
+                            <li><a href="{% url 'Member:viewmonthlycollection' %}">viewmonthlycollection</a></li>
+                            <li><a href="{% url 'Member:viewevents' %}">Details</a></li>
+                          </ul>
                         </li>
                           <!-- <li class="scroll-to-section"><a href="#apply">Apply Now</a></li> -->
                           <li class="has-sub">
                             <a href="javascript:void(0)">Scholarship</a>
                             <ul class="sub-menu">
                                 <li><a href="{% url 'Member:ViewScholarship' %}">Details</a></li>
+                                <li><a href="{% url 'Member:scholarshipstatus' %}">Status</a></li>
                            
                               
                             </ul>
@@ -96,6 +100,7 @@ https://templatemo.com/tm-569-edu-meeting
                             <a href="javascript:void(0)">Paraspara Sahaya Nidhi</a>
                             <ul class="sub-menu">
                                 <li><a href="{% url 'Member:ViewChitty' %}">Details</a></li>
+                                <li><a href="{% url 'Member:chittystatusview' %}">Status</a></li>
                                 
                               
                             </ul>
@@ -343,8 +348,8 @@ https://templatemo.com/tm-569-edu-meeting
               </li>
               <li>
                 <h6>Street Address</h6>
-                <span>NSS Karayogam 4746 Thankalam </span>
-                <span>Kothamangalam p o</span>
+                <span> SNDP Karayogam 4746 Thankalam </span>
+                <span>perumbavoor p o</span>
               </li>
               <!-- <li>
                 <h6>Website URL</h6>

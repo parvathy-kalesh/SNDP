@@ -52,4 +52,5 @@ urlpatterns = [
       path('paysucessful/', views.paysucessful,name="paysucessful"),
     path('runpayment/', views.runpayment,name="runpayment"),
      path('viewevents/', views.viewevents,name="viewevents"),
+      path('complaint/', views.complaint,name="complaint"),
 ]

@@ -64,7 +64,7 @@
             <td>{{i.chitty_name.scheme.scheme_name}}</td>
             <td>{{i.amount}}</td>
             <td>{{i.no_installment}}</td>
-            <td><a href="{% url 'Finance:deletechittycalender' i.id %}">Delete</a></td>
+            <td><a href="{% url 'FinanceHead:deletechittycalender' i.id %}">Delete</a></td>
         </tr>
         {% endfor %}
         </table>

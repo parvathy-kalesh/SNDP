@@ -33,6 +33,7 @@ urlpatterns = [
     path('deleteweeklycollection/<int:wid>',views.deleteweeklycollection,name="deleteweeklycollection"),
       path('viewweeklycollectionpayment/', views.viewweeklycollectionpayment,name="viewweeklycollectionpayment"),
     path('viewmonthlycollectionpayment/', views.viewmonthlycollectionpayment,name="viewmonthlycollectionpayment"),
+     path('logout/',views.logout,name="logout"),
 
     
 ]

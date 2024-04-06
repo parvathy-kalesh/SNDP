@@ -1,3 +1,11 @@
-Welcome {{udata.user_name}}
+{%  extends 'FinanceHead/Head.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br><br>
+<h1 align="center">Welcome {{udata.user_name}}</h1>
+
 <a href="{% url 'FinanceHead:MyProfile' %}">my profile</a><br>
 <a href="{% url 'FinanceHead:ChangePassword' %}">change password</a>
+<a href="{% url 'FinanceHead:logout' %}">logout</a>
+
+{% endblock content %}

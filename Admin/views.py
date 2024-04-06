@@ -297,37 +297,45 @@ def viewresults(request,did):
     return render(request,"Admin/ViewResults.html")
 
 def conviner(request):
-    pid=6
+    pid=2
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
     parray=[]
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
         parray.append(ecount)
-    large=max(parray)
+    large=0
+    print(len(parray))
+    if len(parray)==0:
+        large=0
+    else:
+        large=max(parray)
+
     datas=zip(pdata,parray)
     return render(request,"Admin/conviner.html",{'datas':datas,'win':large})
 
 def secretary(request):
-    pid=5
+    pid=3
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
     parray=[]
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
         parray.append(ecount)
-    large=max(parray)
+    large=0
+    if len(parray)>0:
+        large=max(parray)
     datas=zip(pdata,parray)
     return render(request,"Admin/Secretary.html",{'datas':datas,'win':large})
 
 def president(request):
-    pid=4
+    pid=1
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
     parray=[]
@@ -388,7 +396,7 @@ def chittyreport(request):
 def events(request):
     data=tbl_events.objects.all()
     if request.method=="POST":
-        tbl_events.objects.create(name=request.POST.get('txt_name'),details=request.POST.get('txt_details'),event_date=request.POST.get('txt_date'))
+        tbl_events.objects.create(name=request.POST.get('txt_name'),details=request.POST.get('txt_details'),date=request.POST.get('txt_date'))
         return render(request,"Admin/events.html",{'data':data})
     else:
         return render(request,"Admin/events.html",{'data':data})
@@ -396,3 +404,30 @@ def events(request):
 def deleteevents(request,enid):
     tbl_events.objects.get(id=enid).delete()
     return redirect("Admin:events") 
+
+
+
+def Reply(request,cid):
+    data=tbl_complaint.objects.get(id=cid)
+    if request.method=="POST":
+        data.reply=request.POST.get('reply')
+        data.status=1
+        data.save()
+        return redirect("Admin:viewcomplaint")
+    else:
+        return render(request,"Admin/Reply.html")
+
+
+def viewcomplaint(request):
+    mdata=tbl_memberadding.objects.all()
+    rdata=tbl_relatives.objects.all()
+    mappdata=tbl_complaint.objects.filter(member__in=mdata)
+    rappdata=tbl_complaint.objects.filter(relative__in=rdata)
+    return render(request,"Admin/viewcomplaint.html",{'data':mappdata,'data1':rappdata})
+
+def adminhome(request):
+    return render(request,"Admin/Homepage.html")
+
+def logout(request):
+  return redirect("Guest:Login")
+    

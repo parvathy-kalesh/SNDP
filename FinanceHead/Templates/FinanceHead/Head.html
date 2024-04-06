@@ -123,15 +123,7 @@
                     </ul>
                 </li>
 
-                <li class="">
-                    <a   class="has-arrow" href="#" aria-expanded="false">
-                        <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
-                        <span>Scholarship</span>
-                    </a>
-                    <ul>
-                        
-                    </ul>
-                </li>
+               
                 <li class="">
                     <a   class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
@@ -145,18 +137,7 @@
                     </ul>
                 </li>
 
-                
-                <li class="">
-                    <a   class="has-arrow" href="#" aria-expanded="false">
-                        <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
-                        <span>Complaint & Feedback</span>
-                    </a>
-                    <ul>
-                        
-                        
-                          
-                    </ul>
-                </li>
+               
                  <li class="">
                     <a   class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
@@ -164,18 +145,20 @@
                     </a>
                     <ul>           
                         
-                        
+                        <li><a href="{% url 'Admin:ChittyApplicationReport' %}">Chitty</a></li>
+                        <li><a href="{% url 'Admin:LoanApplicationReport' %}">LOan</a></li>
                         
                     </ul>
                 </li> 
                 <li class="">
-                    <a   class="has-arrow" href="#" aria-expanded="false">
+                    <a  class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
                         <span>LogOut</span>
+                        
                     </a>
                     <ul>
                       
-                        
+                        <li><a href="{% url 'FinanceHead:logout'%}">logout</a></li> 
                     </ul>
                 </li>
             </ul>

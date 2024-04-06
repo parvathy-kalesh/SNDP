@@ -39,6 +39,8 @@ def login(request):
 
       Email=request.POST.get('txt_email')
       Password=request.POST.get('txt_pass')
+      acount=tbl_adminlogin.objects.filter(email=Email,password=Password).count()
+    
 
       ucount=tbl_financehead.objects.filter(user_name=Email,password=Password).count()
       mcount=tbl_memberadding.objects.filter(email=Email,password=Password).count()
@@ -51,6 +53,8 @@ def login(request):
          userdata=tbl_memberadding.objects.get(email=Email,password=Password)
          request.session['mid']=userdata.id
          return redirect('Member:Homepage')
+      elif acount > 0:
+         return redirect('Admin:Homepage')
       elif relativecount>0:
             relativedata=tbl_relatives.objects.get(email=Email,password=Password)
             request.session["reid"]=relativedata.id
@@ -60,4 +64,5 @@ def login(request):
          return render(request,"Guest/Login.html",{'msg':msg})
     else:
         return render(request,"Guest/Login.html")
+
 

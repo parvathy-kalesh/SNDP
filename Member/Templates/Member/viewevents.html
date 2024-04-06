@@ -83,7 +83,7 @@ https://templatemo.com/tm-569-edu-meeting
                       {% endif %}
 
                       <ul class="nav">
-                        <li><a href="{% url 'Member:homepage' %}">Home</a></li>
+                        <li><a href="{% url 'Member:Homepage' %}">Home</a></li>
                           <!-- <li><a href="meetings.html">Meetings</a></li> -->
                           <li class="has-sub">
                             <a href="javascript:void(0)">Collection &Events</a>
@@ -101,7 +101,7 @@ https://templatemo.com/tm-569-edu-meeting
                           <li class="has-sub">
                             <a href="javascript:void(0)">Scholarship</a>
                             <ul class="sub-menu">
-                                <li><a href="{% url 'Member:scholarshipview' %}">details</a></li>
+                                <li><a href="{% url 'Member:ViewScholarship' %}">details</a></li>
                                 <li><a href="{% url 'Member:scholarshipstatus' %}">Status</a></li>
                               
                             </ul>
@@ -109,18 +109,28 @@ https://templatemo.com/tm-569-edu-meeting
                           <li class="has-sub">
                             <a href="javascript:void(0)">ചിട്ടി</a>
                             <ul class="sub-menu">
-                                <li><a href="{% url 'Member:chittyview' %}">വിവരങ്ങൾ</a></li>
+                                <li><a href="{% url 'Member:ViewChitty' %}">വിവരങ്ങൾ</a></li>
                                 <li><a href="{% url 'Member:chittystatusview' %}">Status</a></li>
-                                <li><a href="{% url 'Member:chittyfunding' %}">Chitty</a></li>
-                                <li><a href="{% url 'Member:chittyfundingstatusview' %}"> Chitty Status</a></li>
+                                <li><a href="{% url 'Member:viewchittyfunding' %}">Chitty</a></li>
+                            
                               
                             </ul>
                         </li>
+                        <li class="has-sub">
+                          <a href="javascript:void(0)">Election</a>
+                          <ul class="sub-menu">
+                              <li><a href="{% url 'Member:ViewElectiondec' %}">Details</a></li>
+                              <li><a href="{% url 'Member:results' %}">results</a></li>
+                             
+                          
+                            
+                          </ul>
+                      </li>
                         {% if data1 %} 
                         <li class="has-sub">
                           <a href="javascript:void(0)">Loan</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url 'Member:loanview' %}">View Loan</a></li>
+                              <li><a href="{% url 'Member:ViewLoan' %}">View Loan</a></li>
                               <li> <a href="{% url 'Member:loanstatusview' %}">Loan Status</a></li>
                             <li></li>
                           </ul>
@@ -131,7 +141,7 @@ https://templatemo.com/tm-569-edu-meeting
                         <li class="has-sub">
                           <a href="javascript:void(0)">Relative Add</a>
                           <ul class="sub-menu">
-                              <li><a href="{% url 'Member:relatives' %}">Add</a></li>
+                              <li><a href="{% url 'Member:Relative' %}">Add</a></li>
                              
                             <li></li>
                           </ul>
@@ -141,8 +151,7 @@ https://templatemo.com/tm-569-edu-meeting
                       <li class="has-sub">
                         <a href="javascript:void(0)">Complaint & Feedback</a>
                         <ul class="sub-menu">
-                            <li><a href="{% url 'Member:complaint' %}">Complaint</a></li>
-                            <li><a href="{% url 'Member:feedback' %}">Feedback</a></li>
+                          
                            
                           <li></li>
                         </ul>
@@ -151,10 +160,10 @@ https://templatemo.com/tm-569-edu-meeting
                           <li class="has-sub">
                               <a href="javascript:void(0)">Account</a>
                               <ul class="sub-menu">
-                                  <li><a href="{% url 'Member:myprofile' %}">Account Info</a></li>
-                                  <li><a href="{% url 'Member:changepassword' %}">Change Password</a></li>
-                                  <li><a href="{% url 'Member:editprofile' %}">Edit Profile</a></li>
-                                  <li><a href="{% url 'Member:logout' %}">Logout</a></li>
+                                  <li><a href="{% url 'Member:MyProfile' %}">Account Info</a></li>
+                                  <li><a href="{% url 'Member:ChangePassword' %}">Change Password</a></li>
+                                  <li><a href="{% url 'Member:EditProfile' %}">Edit Profile</a></li>
+                               
                               </ul>
                           </li>
                           <!-- <li class="scroll-to-section"><a href="#courses">Courses</a></li> 

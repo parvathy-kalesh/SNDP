@@ -101,10 +101,12 @@
                     <a   class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
                         <span>Applications</span>
+
                     </a>
                     <ul>
                        
-                     
+                      <li><a href="{% url 'Admin:ViewElectionapply' %}"> ElectionApply</a></li>
+                      <li><a href="{% url 'Admin:ViewScholarApply' %}"> ScholarshipApply</a></li>
                     </ul>
                 </li>
                         <li class="">
@@ -123,10 +125,12 @@
                 <li class="">
                     <a   class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
-                        <span>Member & Relative List</span>
+                        <span>Reports</span>
                     </a>
                     <ul>
-                        <li><a href="{% url 'Admin:MemberRegistration' %}">Member List</a></li>
+                        <li><a href="{% url 'Admin:ChittyApplicationReport' %}">Chitty</a></li>
+                        <li><a href="{% url 'Admin:LoanApplicationReport' %}">LOan</a></li>
+                        <li><a href="{% url 'Admin:ScholarApplicationReport' %}">scholarship</a></li>
                         
                     </ul>
                 </li>
@@ -134,9 +138,10 @@
                     <a   class="has-arrow" href="#" aria-expanded="false">
                         <img src="{%static 'Admin/img/menu-icon/2.svg'%}" alt="">
                         <span>LogOut</span>
+                        
                     </a>
                     <ul>
-                    
+                        <li><a href="{% url 'FinanceHead:logout'%}">logout</a></li> 
                         
                     </ul>
                 </li>

@@ -409,42 +409,46 @@ def voting(request,vid):
        
 
 def results(request):
-    pid=6
+    pid=2
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
     parray=[]
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
         parray.append(ecount)
+    
     large=max(parray)
     datas=zip(pdata,parray)
 
-    pid=5
+    pid=1
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
-    parray=[]
+    parray1=[]
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
-        parray.append(ecount)
-    large1=max(parray)
-    datas1=zip(pdata,parray)
+        parray1.append(ecount)
+    large1=max(parray1)
+    datas1=zip(pdata,parray1)
+    
 
-    pid=4
+    pid=3
     posItiondata=tbl_electionposition.objects.get(id=pid)
-    edata=tbl_electiondeclaration.objects.get(id=request.session["election"])
+    edata=tbl_electiondeclaration.objects.filter().last()
     pdatacount=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata).count()
     pdata=tbl_electionapply.objects.filter(election_name=edata,election_position=posItiondata)
-    parray=[]
+    parray2=[]
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
-        parray.append(ecount)
-    large2=max(parray)
-    datas2=zip(pdata,parray)
-    return render(request,"Admin/Secretary.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
+        parray2.append(ecount)
+    large2=0
+    if len(parray2)>0:
+        large2=max(parray2)
+    datas2=zip(pdata,parray2)
+    return render(request,"Member/ViewResult.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
 
 
 def funding(request,vid):
@@ -761,3 +765,26 @@ def viewevents(request):
     else:
         return redirect("Guest:login")
 
+
+
+def complaint(request):
+    if 'mid' in request.session:
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        data=tbl_complaint.objects.filter(member=mdata)
+        if request.method=="POST":
+            tbl_complaint.objects.create(title=request.POST.get('txt_title'),
+            content=request.POST.get('txt_content'),member=mdata)
+            return render(request,"Member/complaint.html",{'datas':data,'data1':mdata})
+        else:
+            return render(request,"Member/complaint.html",{'datas':data,'data1':mdata})
+    elif 'reid' in request.session:
+        rdata=tbl_relatives.objects.get(id=request.session["reid"])
+        data=tbl_complaint.objects.filter(relative=rdata)
+        if request.method=="POST":
+            tbl_complaint.objects.create(title=request.POST.get('txt_title'),
+            content=request.POST.get('txt_content'),relative=rdata)
+            return render(request,"Member/complaint.html",{'datas':data,'data':rdata})
+        else:
+            return render(request,"Member/complaint.html",{'datas':data,'data':rdata})
+    else:
+        return redirect("Member:Homepage")

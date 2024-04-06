@@ -50,5 +50,9 @@ urlpatterns = [
     path('chittyapplicationreport/',views.chittyreport,name="ChittyApplicationReport"),
      path('events/', views.events,name="events"),
     path('deleteevents/<int:enid>', views.deleteevents,name="deleteevents"),
+    path('reply/<int:cid>', views.Reply,name="reply"),
+    path('viewcomplaint/', views.viewcomplaint,name="viewcomplaint"),
+    path('adminhome/',views.adminhome,name="Homepage"),
+      path('logout/',views.logout,name="logout"),
    
 ]

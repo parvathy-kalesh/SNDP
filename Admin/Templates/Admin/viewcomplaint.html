@@ -1,0 +1,70 @@
+{%  extends 'FinanceHead/Head.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    >
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+         {% if data %}
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <td>Sl.no</td>
+            <td>Member Name</td>
+            <td>title</td>
+            <td>description</td>
+            <td>action</td>
+        </tr>
+       {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.member.member_name}}</td>
+        
+        <td>{{i.title}}</td>
+        <td>{{i.content}}</td>
+        <td>   {% if i.status == 1 %}
+            replied
+           
+            {% else %}
+  
+             <a href="{% url 'Admin:reply' i.id %}">Reply</a>
+             {% endif %}</td>
+      
+        
+    </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+<br><br>
+{% if data1 %}
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <td>Sl.no</td>
+            <td> Name</td>
+            <td>Chitty Name</td>
+            <td>Proof</td>
+          
+        </tr>
+       {% for i in data1 %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.relative.relative_name}}</td>
+        
+        <td>{{i.title}}</td>
+        <td>{{i.description}}</td>
+        
+        
+    </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+            
+</form>
+</body>
+</html>
+{% endblock content %}

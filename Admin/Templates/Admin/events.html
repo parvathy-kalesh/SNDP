@@ -54,7 +54,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{i.name}}</td>
             <td>{{i.details}}</td>
-            <td>{{i.event_date}}</td>
+            <td>{{i.date}}</td>
             <td><a href="{% url 'Admin:deleteevents' i.id %}">Delete</a></td>
         </tr>
         {% endfor %}

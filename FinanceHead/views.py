@@ -161,13 +161,13 @@ def chittycalender(request,cid):
     if 'fid' in request.session:
         data=tbl_chittycalender.objects.all()
         if request.method=="POST":
-            headdata=tbl_financehead.objects.get(id=request.session["fhid"])
+            headdata=tbl_financehead.objects.get(id=request.session["fid"])
             chittyname=tbl_chitty.objects.get(id=cid)
             tbl_chittycalender.objects.create(amount=request.POST.get('txt_rs'),
             no_installment=request.POST.get('txt_in'),
             startdate=request.POST.get('sdate'),
             enddate=request.POST.get('edate'),head=headdata,chitty_name=chittyname)
-            return redirect("FinanceHead:chitty")
+            return redirect("FinanceHead:Chitty")
         else:
             return render(request,"FinanceHead/chittycalender.html",{'data':data})
     else:
@@ -253,3 +253,9 @@ def viewmonthlycollectionpayment(request):
         return render(request,"FinanceHead/viewmonthlycollectionpayment.html",{'data':data})
     else:
         return redirect("Guest:Login")
+    
+def logout(request):
+    if 'fid' in request.session :
+        del request.session["fid"]
+        return redirect("Guest:Login")
+   
