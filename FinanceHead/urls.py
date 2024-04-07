@@ -34,6 +34,8 @@ urlpatterns = [
       path('viewweeklycollectionpayment/', views.viewweeklycollectionpayment,name="viewweeklycollectionpayment"),
     path('viewmonthlycollectionpayment/', views.viewmonthlycollectionpayment,name="viewmonthlycollectionpayment"),
      path('logout/',views.logout,name="logout"),
+    path('loanapplicationreport/',views.loanreport,name="ReportLoan"),
+    path('chittyapplicationreport/',views.chittyreport,name="ReportChitty"),
 
     
 ]

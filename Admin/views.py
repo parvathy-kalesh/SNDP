@@ -8,8 +8,13 @@ from Member.models import *
 def pla(request):
     disdata=tbl_place.objects.all()
     if request.method=="POST":
-        tbl_place.objects.create(place_name=request.POST.get("txt_place"))
-        return render(request,"Admin/place.html",{'place':disdata})
+        datacount=tbl_place.objects.filter(place_name=request.POST.get("txt_place")).count()
+        if datacount>0:
+            msg="Already Entered data!!"
+            return render(request,"Admin/Place.html",{'place':disdata,'msg':msg})
+        else:
+            tbl_place.objects.create(place_name=request.POST.get("txt_place"))
+            return render(request,"Admin/place.html",{'place':disdata})
     else:
         return render(request,"Admin/Place.html",{'place':disdata})
 
@@ -204,7 +209,9 @@ def mreg(request):
         location = locationid,
         photo = request.FILES.get("txt_pic"),
         password = request.POST.get("txt_pass"),age=request.POST.get('txt_age'))
-        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata,'disdata':disdata})
+        
+        msg="Registration successfull!!!"
+        return render(request,"Admin/MemberRegistration.html",{'memdata':memdata,'disdata':disdata,'msg':msg})
     else:
         return render(request,"Admin/MemberRegistration.html",{'memdata':memdata,'disdata':disdata}) 
 

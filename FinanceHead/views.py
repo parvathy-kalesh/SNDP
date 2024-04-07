@@ -257,5 +257,34 @@ def viewmonthlycollectionpayment(request):
 def logout(request):
     if 'fid' in request.session :
         del request.session["fid"]
-        return redirect("Guest:Login")
+    return redirect("Guest:Login")
    
+
+def loanreport(request):
+    if request.method=="POST":
+        if request.POST.get('fdate')!="" and request.POST.get('edate')!="":
+            datas=tbl_loanapply.objects.filter(apply_date__gte=request.POST.get('fdate'),apply_date__lte=request.POST.get('edate'))
+            return render(request,"FinanceHead/ReportLoan.html",{'data':datas})
+        elif request.POST.get('fdate')!="":
+            datas=tbl_loanapply.objects.filter(apply_date__gte=request.POST.get('fdate'))
+            return render(request,"FinanceHead/ReportLoan.html",{'data':datas})
+        else:
+            datas=tbl_loanapply.objects.filter(apply_date__lte=request.POST.get('edate'))
+            return render(request,"FinanceHead/ReportLoan.html",{'data':datas})
+    else:
+        return render(request,"FinanceHead/ReportLoan.html")
+
+
+def chittyreport(request):
+    if request.method=="POST":
+        if request.POST.get('fdate')!="" and request.POST.get('edate')!="":
+            datas=tbl_chittyjoin.objects.filter(apply_date__gte=request.POST.get('fdate'),apply_date__lte=request.POST.get('edate'))
+            return render(request,"FinanceHead/ReportChitty.html",{'data':datas})
+        elif request.POST.get('fdate')!="":
+            datas=tbl_chittyjoin.objects.filter(apply_date__gte=request.POST.get('fdate'))
+            return render(request,"FinanceHead/ReportChitty.html",{'data':datas})
+        else:
+            datas=tbl_chittyjoin.objects.filter(apply_date__lte=request.POST.get('edate'))
+            return render(request,"FinanceHead/ReportChitty.html",{'data':datas})
+    else:
+        return render(request,"FinanceHead/ReportChitty.html")

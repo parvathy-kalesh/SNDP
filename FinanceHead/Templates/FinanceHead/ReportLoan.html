@@ -1,0 +1,60 @@
+{% extends 'FinanceHead/Head.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form  method="post" action="">
+        {% csrf_token %}
+        <table  align="center" border="1">
+            <tr>
+                <th>from date</th>
+                <td><input type="date" name="fdate" id="" required="" autocomplete="off"></td>
+             
+            </tr>
+            <tr>
+                <th>from date</th>
+                <td><input type="date" name="edate" id="" required="" autocomplete="off"></td>
+                
+            </tr>
+            <tr>
+                <td colspan="2" align ="center">
+            <input type="submit" name="btn_save" value="save">
+            </td>
+           </tr>
+           <table border="1" align="center" cellpadding="3">
+            <tr>
+                <td>sl no</td>
+                <td>apply name</td>
+                <td> loan name</td>
+                <td>date</td>
+                <td>status</td>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.member_name.member_name}}</td>
+                <td>{{i.loan_name.loan_name}}</td>
+                <td>{{i.apply_date}}</td>
+                <td>  {% if i.status == 1 %}
+                    Accepted | <a href="{% url 'FinanceHead:rejectloan' i.id %}">Reject</a>
+                    {% elif i.status == 2 %}
+                    Rejected | <a href="{% url 'FinanceHead:acceptloan' i.id %}">Accept</a>
+                    {% else %}
+                     <a href="{% url 'FinanceHead:acceptloan' i.id %}">Accept</a>
+                     <a href="{% url 'FinanceHead:rejectloan' i.id %}">Reject</a>
+                     {% endif %}</td>
+
+
+            </tr>
+            {% endfor %}
+        
+    </form>
+</body>
+</html>
+{% endblock content %}

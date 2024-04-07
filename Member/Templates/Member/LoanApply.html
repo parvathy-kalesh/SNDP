@@ -94,6 +94,7 @@ https://templatemo.com/tm-569-edu-meeting
                             <a href="javascript:void(0)">Scholarship</a>
                             <ul class="sub-menu">
                                 <li><a href="{% url 'Member:ViewScholarship' %}">Details</a></li>
+                                <li><a href="{% url 'Member:scholarshipstatus' %}">Status</a></li>
                            
                               
                             </ul>
@@ -201,6 +202,11 @@ https://templatemo.com/tm-569-edu-meeting
        
 </body>
 </html>
+{% if msg %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endif %}
 <br> <br> <br> <br> <br> <br> <br> <br> <br>
 <div class="footer">
     <!-- <p>Copyright © 2022 Edu Meeting Co., Ltd. All Rights Reserved. 

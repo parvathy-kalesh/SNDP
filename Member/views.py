@@ -203,7 +203,9 @@ def schapply(request,schid):
             tbl_scholarshipapply.objects.create(member_name=data,scholarship_name=schdata,
          
             document=request.FILES.get('filedoc'))
-            return render(request,"Member/ScholarshipApply.html",{'data':data,'schdata':schdata})
+
+            msg="Scholarship Applied"
+            return render(request,"Member/ScholarshipApply.html",{'data':data,'schdata':schdata,'msg':msg})
         else:
            # return render(request,"Member/scholarshipapply.html")
             return render(request,"Member/ScholarshipApply.html",{'data':data,'schdata':schdata})
@@ -231,7 +233,9 @@ def chittyapply(request,chid):
             ptype=tbl_proof.objects.get(id=request.POST.get('ptype'))
             tbl_chittyjoin.objects.create(member_name=memberdata,chittydata=chittydata,
             proof_name=ptype,document=request.FILES.get('proof'))
-            return render(request,"Member/chittyapply.html",{'cdata':chittydata,'ptype':prooftype,'data1':memberdata})
+
+            msg="Chitty Applied!!"
+            return render(request,"Member/chittyapply.html",{'cdata':chittydata,'ptype':prooftype,'data1':memberdata,'msg':msg})
         else:
             return render(request,"Member/chittyapply.html",{'cdata':chittydata,'ptype':prooftype,'data1':memberdata})
     elif 'reid' in request.session:
@@ -257,7 +261,9 @@ def loanapply(request,lnid):
             ptype=tbl_proof.objects.get(id=request.POST.get('ptype'))
             tbl_loanapply.objects.create(member_name=memberdata,loan_name=loan,
             proof_name=ptype,document=request.FILES.get('proof'))
-            return render(request,"Member/LoanApply.html",{'cdata':loan,'ptype':prooftype,'data1':memberdata})
+             
+            msg="Loan Applied!!"
+            return render(request,"Member/LoanApply.html",{'cdata':loan,'ptype':prooftype,'data1':memberdata,'msg':msg})
         else:
             return render(request,"Member/LoanApply.html",{'cdata':loan,'ptype':prooftype,'data1':memberdata})
 
@@ -418,7 +424,6 @@ def results(request):
     for i in pdata:
         ecount=tbl_voting.objects.filter(electionapply=i.id).count()
         parray.append(ecount)
-    
     large=max(parray)
     datas=zip(pdata,parray)
 
@@ -448,7 +453,8 @@ def results(request):
     if len(parray2)>0:
         large2=max(parray2)
     datas2=zip(pdata,parray2)
-    return render(request,"Member/ViewResult.html",{'datas':datas,'datas1':datas1,'win1':large,'win2':large1,'win3':large2})
+    
+    return render(request,"Member/ViewResult.html",{'datas':datas,'datas1':datas1,'datas2':datas2,'win1':large,'win2':large1,'win3':large2})
 
 
 def funding(request,vid):

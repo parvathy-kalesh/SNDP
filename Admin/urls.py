@@ -53,6 +53,6 @@ urlpatterns = [
     path('reply/<int:cid>', views.Reply,name="reply"),
     path('viewcomplaint/', views.viewcomplaint,name="viewcomplaint"),
     path('adminhome/',views.adminhome,name="Homepage"),
-      path('logout/',views.logout,name="logout"),
+    path('logout/',views.logout,name="logout"),
    
 ]
