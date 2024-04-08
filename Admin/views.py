@@ -425,12 +425,7 @@ def Reply(request,cid):
         return render(request,"Admin/Reply.html")
 
 
-def viewcomplaint(request):
-    mdata=tbl_memberadding.objects.all()
-    rdata=tbl_relatives.objects.all()
-    mappdata=tbl_complaint.objects.filter(member__in=mdata)
-    rappdata=tbl_complaint.objects.filter(relative__in=rdata)
-    return render(request,"Admin/viewcomplaint.html",{'data':mappdata,'data1':rappdata})
+
 
 def adminhome(request):
     return render(request,"Admin/Homepage.html")
@@ -438,3 +433,31 @@ def adminhome(request):
 def logout(request):
   return redirect("Guest:Login")
     
+
+def viewcomplaint(request):
+        mdata=tbl_memberadding.objects.all()
+        rdata=tbl_relatives.objects.all()
+        mappdata=tbl_complaint.objects.filter(member__in=mdata)|tbl_complaint.objects.filter(member__in=mdata)
+        rappdata=tbl_complaint.objects.filter(relative__in=rdata)|tbl_complaint.objects.filter(relative__in=rdata)
+        return render(request,"Admin/viewcomplaint.html",{'data':mappdata,'data1':rappdata})
+   
+def complaintreply(request,cid):
+    data=tbl_complaint.objects.get(id=cid)
+    if request.method=="POST":
+        rdata=request.POST.get('txt_reply')
+        data.reply=rdata
+        data.status=1
+            #data.reply_date=date.today()
+        data.save()
+        return redirect("Admin:Homepage")
+    else:
+        return render(request,"Admin/complaintreply.html")
+
+
+def viewfeedback(request):
+    mdata=tbl_memberadding.objects.all()
+    rdata=tbl_relatives.objects.all()
+    mappdata=tbl_feedback.objects.filter(member__in=mdata)|tbl_feedback.objects.filter(member__in=mdata)
+    rappdata=tbl_feedback.objects.filter(relative__in=rdata)|tbl_feedback.objects.filter(relative__in=rdata)
+    return render(request,"Admin/viewfeedback.html",{'data':mappdata,'data1':rappdata})
+ 

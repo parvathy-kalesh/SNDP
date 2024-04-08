@@ -794,3 +794,33 @@ def complaint(request):
             return render(request,"Member/complaint.html",{'datas':data,'data':rdata})
     else:
         return redirect("Member:Homepage")
+
+def elecstatusview(request):
+    if 'mid' in request.session:
+        memberdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        eledata=tbl_electionapply.objects.filter(member_name=memberdata)
+        
+        return render(request,"Member/ElectionStatus.html",{'electionstatus':eledata,'data1':memberdata})
+    else:
+        return redirect("Guest:login")
+
+
+def feedback(request):
+    if 'mid' in request.session:
+        mdata=tbl_memberadding.objects.get(id=request.session["mid"])
+        if request.method=="POST":
+            tbl_feedback.objects.create(content=request.POST.get('txt_content'),
+            member=mdata)
+            return render(request,"Member/feedback.html",{'data1':mdata})
+        else:
+            return render(request,"Member/feedback.html",{'data1':mdata})
+    elif 'reid' in request.session:
+        rdata=tbl_relatives.objects.get(id=request.session["reid"])
+        if request.method=="POST":
+            tbl_feedback.objects.create(content=request.POST.get('txt_content'),
+            relative_name=rdata)
+            return render(request,"Member/feedback.html",{'data':rdata})
+        else:
+            return render(request,"Member/feedback.html",{'data':rdata})
+    else:
+        return redirect("Member:Homepage")

@@ -53,4 +53,6 @@ urlpatterns = [
     path('runpayment/', views.runpayment,name="runpayment"),
      path('viewevents/', views.viewevents,name="viewevents"),
       path('complaint/', views.complaint,name="complaint"),
+      path('electionstatus/', views.elecstatusview,name="ElectionStatus"),
+       path('feedback/', views.feedback,name="feedback"),
 ]

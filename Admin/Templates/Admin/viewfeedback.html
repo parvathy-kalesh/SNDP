@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,18 +9,17 @@
 <body>
     <form method="post" action="">
         {% csrf_token %}
-        <center><h1>Complaints</h1></center>
+        <center><h1>Feedback</h1></center>
          {% if data %}
-         <center><h5>Member Complaints</h5></center>
+       <b> <center><h5>Member Feedback</h5></center></b> 
     <table border="1" align="center" cellpadding="10">
         <tr>
             <td>Sl.no</td>
             <td>Member Name</td>
             <td>Contact</td>
             <td>Email</td>
-            <td>Title </td>
             <td>Content </td>
-            <td>Action</td>
+           
         </tr>
        {% for i in data %}
     <tr>
@@ -30,9 +27,8 @@
         <td>{{i.member.member_name}}</td>
         <td>{{i.member.contact}}</td>
         <td>{{i.member.email}}</td>
-        <td>{{i.title}}</td>
         <td>{{i.content}}</td>
-        <td><a href="{% url 'Admin:complaintreply' i.id %}">Reply</a></td>
+        
         
         
     </tr>
@@ -41,26 +37,23 @@
     {% endif %}
 <br><br>
 {% if data1 %}
-<center><h5>Relative Complaints</h5></center>
+<b><center><h5>Relative Feedback</h5></center></b>
     <table border="1" align="center" cellpadding="10">
         <tr>
             <td>Sl.no</td>
             <td> Name</td>
             <td>Contact</td>
             <td>Email</td>
-            <td>Title </td>
             <td>Content </td>
-            <td>Action</td>
+          
         </tr>
        {% for i in data1 %}
     <tr>
         <td>{{forloop.counter}}</td>
-        <td>{{i.relative_name.relative_name}}</td>
-        <td>{{i.relative_name.contact}}</td>
-        <td>{{i.relative_name.email}}</td>
-        <td>{{i.title}}</td>
+        <td>{{i.relative.relative_name}}</td>
+        <td>{{i.relative.contact}}</td>
+        <td>{{i.relative.email}}</td>
         <td>{{i.content}}</td>
-        <td><a href="{% url 'Finance:complaintreply' i.id %}">Reply</a></td>
         
         
         

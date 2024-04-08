@@ -1,0 +1,35 @@
+<table border="1" align="center" cellpadding="10" style="border-collapse: collapse; margin-top: 200px" align="center">
+    <tr>
+        <td>Sl.no</td>
+     
+        <td>election name</td>
+        <td>election position</td>
+        <td> application Status</td>
+        
+        
+    </tr>
+   
+   
+    {% for i in electionstatus  %}
+<tr> 
+<td>{{forloop.counter}}</td>
+
+
+<td>{{i.election_name.title}}</td>
+<td>{{i.election_position.election_position}}</td>
+<td>
+    {% if i.status == 0 %}
+    <p >Application on process</p>
+    {% elif i.status == 1 %}
+    <p >Application accepted | </p>
+    {% else %}
+    <p >rejected</p>
+    {% endif %}
+</td>
+ 
+</tr>
+
+
+{% endfor %}
+
+</table>

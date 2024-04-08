@@ -54,5 +54,9 @@ urlpatterns = [
     path('viewcomplaint/', views.viewcomplaint,name="viewcomplaint"),
     path('adminhome/',views.adminhome,name="Homepage"),
     path('logout/',views.logout,name="logout"),
+    path('viewcomplaint/', views.viewcomplaint,name="viewcomplaint"),
+    path('complaintreply/<int:cid>', views.complaintreply,name="complaintreply"),
+    path('viewfeedback/', views.viewfeedback,name="viewfeedback"),
+    
    
 ]
